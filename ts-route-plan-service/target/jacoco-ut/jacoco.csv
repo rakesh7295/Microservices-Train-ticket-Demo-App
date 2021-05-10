@@ -1,0 +1,25 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-route-plan-service,plan.service,RoutePlanServiceImpl,555,431,35,11,105,74,25,8,2,8
+ts-route-plan-service,plan.entity,TripAllDetailInfo,212,0,38,0,7,0,32,0,13,0
+ts-route-plan-service,plan.entity,TripInfo,154,15,30,0,3,3,22,4,7,4
+ts-route-plan-service,plan.entity,RoutePlanInfo,176,34,32,0,0,13,23,7,7,7
+ts-route-plan-service,plan.entity,Type,114,0,4,0,20,0,9,0,7,0
+ts-route-plan-service,plan.entity,TripId,147,0,26,0,17,0,24,0,10,0
+ts-route-plan-service,plan.entity,Trip,420,0,70,0,25,0,58,0,23,0
+ts-route-plan-service,plan.entity,TripResponse,436,0,74,0,13,0,62,0,25,0
+ts-route-plan-service,plan.entity,Route,255,0,46,0,8,0,38,0,15,0
+ts-route-plan-service,plan.entity,TripAllDetail,199,0,34,0,7,0,30,0,13,0
+ts-route-plan-service,plan.entity,RoutePlanResultUnit,427,0,78,0,12,0,62,0,23,0
+ts-route-plan-service,plan.config,SecurityConfig,79,0,0,0,16,0,4,0,4,0
+ts-route-plan-service,plan.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-route-plan-service,plan.controller,RoutePlanController,0,108,0,0,0,9,0,6,0,6
+ts-route-plan-service,plan,RoutePlanApplication,11,0,0,0,4,0,3,0,3,0

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:44:02.475">
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/TrainApplication.java">
+<violation beginline="15" endline="21" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train" class="TrainApplication" priority="3">
+【TrainApplication】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/config/SecurityConfig.java">
+<violation beginline="24" endline="84" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.config" class="SecurityConfig" priority="3">
+【SecurityConfig】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/controller/TrainController.java">
+<violation beginline="18" endline="83" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.controller" class="TrainController" priority="3">
+【TrainController】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/entity/TrainType.java">
+<violation beginline="11" endline="40" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.entity" class="TrainType" priority="3">
+【TrainType】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/init/InitData.java">
+<violation beginline="11" endline="56" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.init" class="InitData" priority="3">
+【InitData】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/repository/TrainTypeRepository.java">
+<violation beginline="9" endline="15" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.repository" class="TrainTypeRepository" priority="3">
+【TrainTypeRepository】缺少包含@author的注释信息
+</violation>
+<violation beginline="11" endline="11" begincolumn="15" endcolumn="33" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.repository" class="TrainTypeRepository" method="findById" priority="3">
+接口方法【findById】必须使用javadoc注释
+</violation>
+<violation beginline="13" endline="13" begincolumn="21" endcolumn="29" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.repository" class="TrainTypeRepository" method="findAll" priority="3">
+接口方法【findAll】必须使用javadoc注释
+</violation>
+<violation beginline="14" endline="14" begincolumn="10" endcolumn="30" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.repository" class="TrainTypeRepository" method="deleteById" priority="3">
+接口方法【deleteById】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/service/TrainService.java">
+<violation beginline="8" endline="19" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" priority="3">
+【TrainService】缺少包含@author的注释信息
+</violation>
+<violation beginline="9" endline="9" begincolumn="5" endcolumn="61" rule="CommentsMustBeJavadocFormatRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="create" priority="3">
+方法【create】必须使用javadoc形式的注释
+</violation>
+<violation beginline="10" endline="10" begincolumn="13" endcolumn="60" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="create" priority="3">
+接口方法【create】必须使用javadoc注释
+</violation>
+<violation beginline="12" endline="12" begincolumn="15" endcolumn="53" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="retrieve" priority="3">
+接口方法【retrieve】必须使用javadoc注释
+</violation>
+<violation beginline="14" endline="14" begincolumn="13" endcolumn="59" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="update" priority="3">
+接口方法【update】必须使用javadoc注释
+</violation>
+<violation beginline="16" endline="16" begincolumn="13" endcolumn="49" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="delete" priority="3">
+接口方法【delete】必须使用javadoc注释
+</violation>
+<violation beginline="18" endline="18" begincolumn="21" endcolumn="46" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainService" method="query" priority="3">
+接口方法【query】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/service/TrainServiceImpl.java">
+<violation beginline="12" endline="66" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="train.service" class="TrainServiceImpl" priority="3">
+【TrainServiceImpl】缺少包含@author的注释信息
+</violation>
+</file>
+</pmd>

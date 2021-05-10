@@ -1,0 +1,6 @@
+#surefire_20
+#Sat May 08 18:45:09 IST 2021
+basedir=/home/rakesh/project/train-ticket/ts-assurance-service
+pmd.failOnViolation=false
+user.dir=/home/rakesh/project/train-ticket/ts-assurance-service
+localRepository=/home/rakesh/.m2/repository

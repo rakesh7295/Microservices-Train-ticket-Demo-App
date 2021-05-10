@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:44:31.061">
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/TicketInfoApplication.java">
+<violation beginline="19" endline="29" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo" class="TicketInfoApplication" priority="3">
+【TicketInfoApplication】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/config/SecurityConfig.java">
+<violation beginline="23" endline="74" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.config" class="SecurityConfig" priority="3">
+【SecurityConfig】缺少包含@author的注释信息
+</violation>
+<violation beginline="25" endline="25" begincolumn="12" endcolumn="5" rule="CommentsMustBeJavadocFormatRule" ruleset="AlibabaJavaComments" package="ticketinfo.config" class="SecurityConfig" method="passwordEncoder" priority="3">
+方法【passwordEncoder】必须使用javadoc形式的注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/controller/TicketInfoController.java">
+<violation beginline="18" endline="40" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.controller" class="TicketInfoController" priority="3">
+【TicketInfoController】注释缺少@author信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/TrainType.java">
+<violation beginline="6" endline="25" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="TrainType" priority="3">
+【TrainType】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/Travel.java">
+<violation beginline="8" endline="22" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Travel" priority="3">
+【Travel】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/TravelResult.java">
+<violation beginline="7" endline="23" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="TravelResult" priority="3">
+【TravelResult】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/Trip.java">
+<violation beginline="10" endline="70" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Trip" priority="3">
+【Trip】缺少包含@author的注释信息
+</violation>
+<violation beginline="20" endline="20" begincolumn="13" endcolumn="37" rule="CommentsMustBeJavadocFormatRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Trip" variable="startingStationId" priority="3">
+字段【startingStationId】必须使用javadoc形式的注释
+</violation>
+<violation beginline="25" endline="25" begincolumn="13" endcolumn="30" rule="CommentsMustBeJavadocFormatRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Trip" variable="stationsId" priority="3">
+字段【stationsId】必须使用javadoc形式的注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/TripId.java">
+<violation beginline="8" endline="40" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="TripId" priority="3">
+【TripId】缺少包含@author的注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/entity/Type.java">
+<violation beginline="6" endline="41" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Type" priority="3">
+【Type】缺少包含@author的注释信息
+</violation>
+<violation beginline="6" endline="41" begincolumn="41" endcolumn="1" rule="EnumConstantsMustHaveCommentRule" ruleset="AlibabaJavaComments" package="ticketinfo.entity" class="Type" priority="2">
+枚举【Type】的字段缺少注释信息
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/service/TicketInfoService.java">
+<violation beginline="10" endline="13" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.service" class="TicketInfoService" priority="3">
+【TicketInfoService】注释缺少@author信息
+</violation>
+<violation beginline="11" endline="11" begincolumn="14" endcolumn="61" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="ticketinfo.service" class="TicketInfoService" method="queryForTravel" priority="3">
+接口方法【queryForTravel】必须使用javadoc注释
+</violation>
+<violation beginline="12" endline="12" begincolumn="14" endcolumn="63" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="ticketinfo.service" class="TicketInfoService" method="queryForStationId" priority="3">
+接口方法【queryForStationId】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-ticketinfo-service/src/main/java/ticketinfo/service/TicketInfoServiceImpl.java">
+<violation beginline="17" endline="44" begincolumn="8" endcolumn="1" rule="ClassMustHaveAuthorRule" ruleset="AlibabaJavaComments" package="ticketinfo.service" class="TicketInfoServiceImpl" priority="3">
+【TicketInfoServiceImpl】注释缺少@author信息
+</violation>
+</file>
+</pmd>

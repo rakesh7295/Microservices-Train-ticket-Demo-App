@@ -1,0 +1,22 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-inside-payment-service,inside_payment.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-inside-payment-service,inside_payment.config,SecurityConfig,89,0,0,0,16,0,4,0,4,0
+ts-inside-payment-service,inside_payment.service,InsidePaymentServiceImpl,424,517,28,28,78,107,21,20,1,12
+ts-inside-payment-service,inside_payment.service,InsidePaymentServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-inside-payment-service,inside_payment.entity,PaymentInfo,197,30,38,0,1,7,27,6,8,6
+ts-inside-payment-service,inside_payment.entity,MoneyType,39,39,4,0,10,7,7,2,5,2
+ts-inside-payment-service,inside_payment.entity,OrderStatus,33,102,4,0,6,13,4,3,2,3
+ts-inside-payment-service,inside_payment.entity,SeatClass,33,126,4,0,6,15,4,3,2,3
+ts-inside-payment-service,inside_payment.entity,Money,194,28,38,0,3,7,27,5,8,5
+ts-inside-payment-service,inside_payment.entity,Balance,132,0,22,0,7,0,20,0,9,0
+ts-inside-payment-service,inside_payment.entity,PaymentType,39,63,4,0,10,9,7,2,5,2
+ts-inside-payment-service,inside_payment.entity,OutsidePaymentInfo,169,0,30,0,6,0,26,0,11,0
+ts-inside-payment-service,inside_payment.entity,AccountInfo,117,9,22,0,1,4,17,3,6,3
+ts-inside-payment-service,inside_payment.entity,Order,325,55,38,0,42,15,51,5,32,5
+ts-inside-payment-service,inside_payment.entity,Payment,233,39,46,0,4,8,32,6,9,6
+ts-inside-payment-service,inside_payment.util,CookieUtil,76,0,8,0,19,0,8,0,4,0
+ts-inside-payment-service,inside_payment.async,AsyncTask,28,0,0,0,6,0,3,0,3,0
+ts-inside-payment-service,inside_payment.async,ExecutorConfig,63,0,0,0,19,0,3,0,3,0
+ts-inside-payment-service,inside_payment,InsidePaymentApplication,11,0,0,0,4,0,3,0,3,0
+ts-inside-payment-service,inside_payment.controller,InsidePaymentController,0,69,0,0,0,12,0,11,0,11
+ts-inside-payment-service,inside_payment.init,InitData,44,0,0,0,13,0,2,0,2,0

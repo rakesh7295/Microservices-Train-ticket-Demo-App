@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:45:45.003">
+<file name="/home/rakesh/project/train-ticket/ts-admin-order-service/src/main/java/adminorder/service/AdminOrderServiceImpl.java">
+<violation beginline="75" endline="75" begincolumn="67" endcolumn="69" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="deleteOrder" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="75" endline="75" begincolumn="36" endcolumn="38" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="deleteOrder" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+<violation beginline="105" endline="105" begincolumn="93" endcolumn="95" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="updateOrder" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="105" endline="105" begincolumn="49" endcolumn="51" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="updateOrder" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+<violation beginline="134" endline="134" begincolumn="93" endcolumn="95" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="addOrder" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="134" endline="134" begincolumn="49" endcolumn="51" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="adminorder.service" class="AdminOrderServiceImpl" method="addOrder" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+</file>
+</pmd>

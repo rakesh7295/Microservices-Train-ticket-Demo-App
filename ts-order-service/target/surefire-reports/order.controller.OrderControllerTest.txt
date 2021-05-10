@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: order.controller.OrderControllerTest
+-------------------------------------------------------------------------------
+Tests run: 16, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.693 sec <<< FAILURE! - in order.controller.OrderControllerTest
+testSecurityInfoCheck(order.controller.OrderControllerTest)  Time elapsed: 0.056 sec  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<400>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:54)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:81)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers$10.match(StatusResultMatchers.java:665)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:164)
+	at order.controller.OrderControllerTest.testSecurityInfoCheck(OrderControllerTest.java:156)
+
+testCalculateSoldTicket(order.controller.OrderControllerTest)  Time elapsed: 0.011 sec  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<400>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:54)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:81)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers$10.match(StatusResultMatchers.java:665)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:164)
+	at order.controller.OrderControllerTest.testCalculateSoldTicket(OrderControllerTest.java:110)
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TripResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-preserve-other-service</a> &gt; <a href="index.source.html" class="el_package">preserveOther.entity</a> &gt; <span class="el_source">TripResponse.java</span></div><h1>TripResponse.java</h1><pre class="source lang-java linenums">package preserveOther.entity;
+
+import lombok.Data;
+import lombok.ToString;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
+/**
+ * @author fdse
+ */
+<span class="pc bnc" id="L13" title="All 50 branches missed.">@Data</span>
+<span class="fc" id="L14">@ToString</span>
+public class TripResponse {
+    @Valid
+<span class="fc" id="L17">    private TripId tripId;</span>
+
+    @Valid
+    @NotNull
+<span class="fc" id="L21">    private String startingStation;</span>
+
+    @Valid
+    @NotNull
+<span class="fc" id="L25">    private String terminalStation;</span>
+
+    @Valid
+    @NotNull
+<span class="fc" id="L29">    private Date startingTime;</span>
+
+    @Valid
+    @NotNull
+<span class="fc" id="L33">    private Date endTime;</span>
+
+    /**
+     * The number of economy seat
+     */
+    @Valid
+    @NotNull
+<span class="fc" id="L40">    private int economyClass;</span>
+
+    /**
+     * The number of confort seat
+     */
+    @Valid
+    @NotNull
+<span class="fc" id="L47">    private int confortClass;</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

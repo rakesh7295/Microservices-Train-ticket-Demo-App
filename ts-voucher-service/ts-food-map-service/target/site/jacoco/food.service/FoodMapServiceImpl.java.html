@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoodMapServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-food-map-service</a> &gt; <a href="index.source.html" class="el_package">food.service</a> &gt; <span class="el_source">FoodMapServiceImpl.java</span></div><h1>FoodMapServiceImpl.java</h1><pre class="source lang-java linenums">package food.service;
+
+import edu.fudan.common.util.Response;
+import food.entity.FoodStore;
+import food.entity.TrainFood;
+import food.repository.FoodStoreRepository;
+import food.repository.TrainFoodRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+@Service
+<span class="fc" id="L18">public class FoodMapServiceImpl implements FoodMapService {</span>
+
+    @Autowired
+    FoodStoreRepository foodStoreRepository;
+
+    @Autowired
+    TrainFoodRepository trainFoodRepository;
+
+<span class="fc" id="L26">    private static final Logger LOGGER = LoggerFactory.getLogger(FoodMapServiceImpl.class);</span>
+
+<span class="fc" id="L28">    String success = &quot;Success&quot;;</span>
+<span class="fc" id="L29">    String noContent = &quot;No content&quot;;</span>
+
+    @Override
+    public Response createFoodStore(FoodStore fs, HttpHeaders headers) {
+<span class="fc" id="L33">        FoodStore fsTemp = foodStoreRepository.findById(fs.getId());</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (fsTemp != null) {</span>
+<span class="fc" id="L35">            FoodMapServiceImpl.LOGGER.info(&quot;[Food Map Service][Init FoodStore] Already Exists Id: {}&quot;, fs.getId());</span>
+<span class="fc" id="L36">            return new Response&lt;&gt;(0, &quot;Already Exists Id&quot;, null);</span>
+        } else {
+<span class="fc" id="L38">            foodStoreRepository.save(fs);</span>
+<span class="fc" id="L39">            return new Response&lt;&gt;(1, &quot;Save Success&quot;, fs);</span>
+        }
+    }
+
+    @Override
+    public TrainFood createTrainFood(TrainFood tf, HttpHeaders headers) {
+<span class="fc" id="L45">        TrainFood tfTemp = trainFoodRepository.findById(tf.getId());</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (tfTemp != null) {</span>
+<span class="fc" id="L47">            FoodMapServiceImpl.LOGGER.info(&quot;[Food Map Service][Init TrainFood] Already Exists Id: {}&quot;, tf.getId());</span>
+        } else {
+<span class="fc" id="L49">            trainFoodRepository.save(tf);</span>
+        }
+<span class="fc" id="L51">        return tf;</span>
+    }
+
+    @Override
+    public Response listFoodStores(HttpHeaders headers) {
+<span class="fc" id="L56">        List&lt;FoodStore&gt; foodStores = foodStoreRepository.findAll();</span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">        if (foodStores != null &amp;&amp; !foodStores.isEmpty()) {</span>
+<span class="fc" id="L58">            return new Response&lt;&gt;(1, success, foodStores);</span>
+        } else {
+<span class="fc" id="L60">            return new Response&lt;&gt;(0, &quot;Foodstore is empty&quot;, null);</span>
+        }
+    }
+
+    @Override
+    public Response listTrainFood(HttpHeaders headers) {
+<span class="fc" id="L66">        List&lt;TrainFood&gt; trainFoodList = trainFoodRepository.findAll();</span>
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        if (trainFoodList != null &amp;&amp; !trainFoodList.isEmpty()) {</span>
+<span class="fc" id="L68">            return new Response&lt;&gt;(1, success, trainFoodList);</span>
+        } else {
+<span class="fc" id="L70">            return new Response&lt;&gt;(0, noContent, null);</span>
+        }
+    }
+
+    @Override
+    public Response listFoodStoresByStationId(String stationId, HttpHeaders headers) {
+<span class="fc" id="L76">        List&lt;FoodStore&gt; foodStoreList = foodStoreRepository.findByStationId(stationId);</span>
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">        if (foodStoreList != null &amp;&amp; !foodStoreList.isEmpty()) {</span>
+<span class="fc" id="L78">            return new Response&lt;&gt;(1, success, foodStoreList);</span>
+        } else {
+<span class="fc" id="L80">            return new Response&lt;&gt;(0, &quot;FoodStore is empty&quot;, null);</span>
+        }
+    }
+
+    @Override
+    public Response listTrainFoodByTripId(String tripId, HttpHeaders headers) {
+<span class="fc" id="L86">        List&lt;TrainFood&gt; trainFoodList = trainFoodRepository.findByTripId(tripId);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (trainFoodList != null) {</span>
+<span class="fc" id="L88">            return new Response&lt;&gt;(1, success, trainFoodList);</span>
+        } else {
+<span class="fc" id="L90">            return new Response&lt;&gt;(0, noContent, null);</span>
+        }
+    }
+
+    @Override
+    public Response getFoodStoresByStationIds(List&lt;String&gt; stationIds) {
+<span class="fc" id="L96">        List&lt;FoodStore&gt; foodStoreList = foodStoreRepository.findByStationIdIn(stationIds);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (foodStoreList != null) {</span>
+<span class="fc" id="L98">            return new Response&lt;&gt;(1, success, foodStoreList);</span>
+        } else {
+<span class="fc" id="L100">            return new Response&lt;&gt;(0, noContent, null);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

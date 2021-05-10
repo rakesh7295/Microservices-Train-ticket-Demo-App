@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrainController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-train-service</a> &gt; <a href="index.source.html" class="el_package">train.controller</a> &gt; <span class="el_source">TrainController.java</span></div><h1>TrainController.java</h1><pre class="source lang-java linenums">package train.controller;
+
+import edu.fudan.common.util.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.*;
+import train.entity.TrainType;
+import train.service.TrainService;
+
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
+
+
+@RestController
+@RequestMapping(&quot;/api/v1/trainservice&quot;)
+<span class="fc" id="L18">public class TrainController {</span>
+
+
+    @Autowired
+    private TrainService trainService;
+
+    @GetMapping(path = &quot;/trains/welcome&quot;)
+    public String home(@RequestHeader HttpHeaders headers) {
+<span class="fc" id="L26">        return &quot;Welcome to [ Train Service ] !&quot;;</span>
+    }
+
+    @CrossOrigin(origins = &quot;*&quot;)
+    @PostMapping(value = &quot;/trains&quot;)
+    public HttpEntity create(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
+<span class="fc" id="L32">        boolean isCreateSuccess = trainService.create(trainType, headers);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (isCreateSuccess) {</span>
+<span class="fc" id="L34">            return ok(new Response(1, &quot;create success&quot;, null));</span>
+        } else {
+<span class="fc" id="L36">            return ok(new Response(0, &quot;train type already exist&quot;, trainType));</span>
+        }
+    }
+
+    @CrossOrigin(origins = &quot;*&quot;)
+    @GetMapping(value = &quot;/trains/{id}&quot;)
+    public HttpEntity retrieve(@PathVariable String id, @RequestHeader HttpHeaders headers) {
+<span class="fc" id="L43">        TrainType trainType = trainService.retrieve(id, headers);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (trainType == null) {</span>
+<span class="fc" id="L45">            return ok(new Response(0, &quot;here is no TrainType with the trainType id: &quot; + id, null));</span>
+        } else {
+<span class="fc" id="L47">            return ok(new Response(1, &quot;success&quot;, trainType));</span>
+        }
+    }
+
+    @CrossOrigin(origins = &quot;*&quot;)
+    @PutMapping(value = &quot;/trains&quot;)
+    public HttpEntity update(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
+<span class="fc" id="L54">        boolean isUpdateSuccess = trainService.update(trainType, headers);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (isUpdateSuccess) {</span>
+<span class="fc" id="L56">            return ok(new Response(1, &quot;update success&quot;, isUpdateSuccess));</span>
+        } else {
+<span class="fc" id="L58">            return ok(new Response(0, &quot;there is no trainType with the trainType id&quot;, isUpdateSuccess));</span>
+        }
+    }
+
+    @CrossOrigin(origins = &quot;*&quot;)
+    @DeleteMapping(value = &quot;/trains/{id}&quot;)
+    public HttpEntity delete(@PathVariable String id, @RequestHeader HttpHeaders headers) {
+<span class="fc" id="L65">        boolean isDeleteSuccess = trainService.delete(id, headers);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (isDeleteSuccess) {</span>
+<span class="fc" id="L67">            return ok(new Response(1, &quot;delete success&quot;, isDeleteSuccess));</span>
+        } else {
+<span class="fc" id="L69">            return ok(new Response(0, &quot;there is no train according to id&quot;, null));</span>
+        }
+    }
+
+    @CrossOrigin(origins = &quot;*&quot;)
+    @GetMapping(value = &quot;/trains&quot;)
+    public HttpEntity query(@RequestHeader HttpHeaders headers) {
+<span class="fc" id="L76">        List&lt;TrainType&gt; trainTypes = trainService.query(headers);</span>
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">        if (trainTypes != null &amp;&amp; !trainTypes.isEmpty()) {</span>
+<span class="fc" id="L78">            return ok(new Response(1, &quot;success&quot;, trainTypes));</span>
+        } else {
+<span class="fc" id="L80">            return ok(new Response(0, &quot;no content&quot;, trainTypes));</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

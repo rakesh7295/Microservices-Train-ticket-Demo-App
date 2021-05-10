@@ -1,0 +1,6 @@
+#surefire_8
+#Sat May 08 18:44:19 IST 2021
+basedir=/home/rakesh/project/train-ticket/ts-preserve-other-service
+pmd.failOnViolation=false
+user.dir=/home/rakesh/project/train-ticket/ts-preserve-other-service
+localRepository=/home/rakesh/.m2/repository

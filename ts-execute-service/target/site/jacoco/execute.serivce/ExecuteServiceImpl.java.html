@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecuteServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-execute-service</a> &gt; <a href="index.source.html" class="el_package">execute.serivce</a> &gt; <span class="el_source">ExecuteServiceImpl.java</span></div><h1>ExecuteServiceImpl.java</h1><pre class="source lang-java linenums">package execute.serivce;
+
+import edu.fudan.common.util.Response;
+import execute.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * @author fdse
+ */
+@Service
+<span class="fc" id="L20">public class ExecuteServiceImpl implements ExecuteService {</span>
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+<span class="fc" id="L25">    String orderStatusWrong = &quot;Order Status Wrong&quot;;</span>
+
+<span class="fc" id="L27">    private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteServiceImpl.class);</span>
+
+    @Override
+    public Response ticketExecute(String orderId, HttpHeaders headers) {
+        //1.Get order information
+
+<span class="fc" id="L33">        Response&lt;Order&gt; resultFromOrder = getOrderByIdFromOrder(orderId, headers);</span>
+        Order order;
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (resultFromOrder.getStatus() == 1) {</span>
+<span class="fc" id="L36">            order =   resultFromOrder.getData();</span>
+            //2.Check if the order can come in
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if (order.getStatus() != OrderStatus.COLLECTED.getCode()) {</span>
+<span class="nc" id="L39">                return new Response&lt;&gt;(0, orderStatusWrong, null);</span>
+            }
+            //3.Confirm inbound, request change order information
+
+<span class="fc" id="L43">            Response resultExecute = executeOrder(orderId, OrderStatus.USED.getCode(), headers);</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            if (resultExecute.getStatus() == 1) {</span>
+<span class="fc" id="L45">                return new Response&lt;&gt;(1, &quot;Success.&quot;, null);</span>
+            } else {
+<span class="nc" id="L47">                return new Response&lt;&gt;(0, resultExecute.getMsg(), null);</span>
+            }
+        } else {
+<span class="fc" id="L50">            resultFromOrder = getOrderByIdFromOrderOther(orderId, headers);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">            if (resultFromOrder.getStatus() == 1) {</span>
+<span class="fc" id="L52">                order =   resultFromOrder.getData();</span>
+                //2.Check if the order can come in
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                if (order.getStatus() != OrderStatus.COLLECTED.getCode()) {</span>
+<span class="nc" id="L55">                    return new Response&lt;&gt;(0, orderStatusWrong, null);</span>
+                }
+                //3.Confirm inbound, request change order information
+
+<span class="fc" id="L59">                Response resultExecute = executeOrderOther(orderId, OrderStatus.USED.getCode(), headers);</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                if (resultExecute.getStatus() == 1) {</span>
+<span class="fc" id="L61">                    return new Response&lt;&gt;(1, &quot;Success&quot;, null);</span>
+                } else {
+<span class="nc" id="L63">                    return new Response&lt;&gt;(0, resultExecute.getMsg(), null);</span>
+                }
+            } else {
+<span class="nc" id="L66">                return new Response&lt;&gt;(0, &quot;Order Not Found&quot;, null);</span>
+            }
+        }
+    }
+
+    @Override
+    public Response ticketCollect(String orderId, HttpHeaders headers) {
+        //1.Get order information
+
+<span class="fc" id="L75">        Response&lt;Order&gt; resultFromOrder = getOrderByIdFromOrder(orderId, headers);</span>
+        Order order;
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (resultFromOrder.getStatus() == 1) {</span>
+<span class="fc" id="L78">            order =  resultFromOrder.getData();</span>
+            //2.Check if the order can come in
+<span class="pc bpc" id="L80" title="3 of 4 branches missed.">            if (order.getStatus() != OrderStatus.PAID.getCode() &amp;&amp; order.getStatus() != OrderStatus.CHANGE.getCode()) {</span>
+<span class="nc" id="L81">                return new Response&lt;&gt;(0, orderStatusWrong, null);</span>
+            }
+            //3.Confirm inbound, request change order information
+
+<span class="fc" id="L85">            Response resultExecute = executeOrder(orderId, OrderStatus.COLLECTED.getCode(), headers);</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            if (resultExecute.getStatus() == 1) {</span>
+<span class="fc" id="L87">                return new Response&lt;&gt;(1, &quot;Success&quot;, null);</span>
+            } else {
+<span class="nc" id="L89">                return new Response&lt;&gt;(0, resultExecute.getMsg(), null);</span>
+            }
+        } else {
+<span class="fc" id="L92">            resultFromOrder = getOrderByIdFromOrderOther(orderId, headers);</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            if (resultFromOrder.getStatus() == 1) {</span>
+<span class="fc" id="L94">                order = (Order) resultFromOrder.getData();</span>
+                //2.Check if the order can come in
+<span class="pc bpc" id="L96" title="3 of 4 branches missed.">                if (order.getStatus() != OrderStatus.PAID.getCode() &amp;&amp; order.getStatus() != OrderStatus.CHANGE.getCode()) {</span>
+<span class="nc" id="L97">                    return new Response&lt;&gt;(0, orderStatusWrong, null);</span>
+                }
+                //3.Confirm inbound, request change order information
+<span class="fc" id="L100">                Response resultExecute = executeOrderOther(orderId, OrderStatus.COLLECTED.getCode(), headers);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">                if (resultExecute.getStatus() == 1) {</span>
+<span class="fc" id="L102">                    return new Response&lt;&gt;(1, &quot;Success.&quot;, null);</span>
+                } else {
+<span class="nc" id="L104">                    return new Response&lt;&gt;(0, resultExecute.getMsg(), null);</span>
+                }
+            } else {
+<span class="nc" id="L107">                return new Response&lt;&gt;(0, &quot;Order Not Found&quot;, null);</span>
+            }
+        }
+    }
+
+
+    private Response executeOrder(String orderId, int status, HttpHeaders headers) {
+<span class="fc" id="L114">        ExecuteServiceImpl.LOGGER.info(&quot;[Execute Service][Execute Order] Executing....&quot;);</span>
+<span class="fc" id="L115">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L116">        ResponseEntity&lt;Response&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-order-service:12031/api/v1/orderservice/order/status/&quot; + orderId + &quot;/&quot; + status,
+                HttpMethod.GET,
+                requestEntity,
+                Response.class);
+<span class="fc" id="L121">        return re.getBody();</span>
+    }
+
+
+    private Response executeOrderOther(String orderId, int status, HttpHeaders headers) {
+<span class="fc" id="L126">        ExecuteServiceImpl.LOGGER.info(&quot;[Execute Service][Execute Order] Executing....&quot;);</span>
+<span class="fc" id="L127">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L128">        ResponseEntity&lt;Response&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/status/&quot; + orderId + &quot;/&quot; + status,
+                HttpMethod.GET,
+                requestEntity,
+                Response.class);
+<span class="fc" id="L133">        return re.getBody();</span>
+    }
+
+    private Response&lt;Order&gt; getOrderByIdFromOrder(String orderId, HttpHeaders headers) {
+<span class="fc" id="L137">        ExecuteServiceImpl.LOGGER.info(&quot;[Execute Service][Get Order] Getting....&quot;);</span>
+<span class="fc" id="L138">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L139">        ResponseEntity&lt;Response&lt;Order&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-order-service:12031/api/v1/orderservice/order/&quot; + orderId,
+                HttpMethod.GET,
+                requestEntity,
+<span class="fc" id="L143">                new ParameterizedTypeReference&lt;Response&lt;Order&gt;&gt;() {</span>
+                });
+<span class="fc" id="L145">        return re.getBody();</span>
+    }
+
+    private Response&lt;Order&gt; getOrderByIdFromOrderOther(String orderId, HttpHeaders headers) {
+<span class="fc" id="L149">        ExecuteServiceImpl.LOGGER.info(&quot;[Execute Service][Get Order] Getting....&quot;);</span>
+<span class="fc" id="L150">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L151">        ResponseEntity&lt;Response&lt;Order&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/&quot; + orderId,
+                HttpMethod.GET,
+                requestEntity,
+<span class="fc" id="L155">                new ParameterizedTypeReference&lt;Response&lt;Order&gt;&gt;() {</span>
+                });
+<span class="fc" id="L157">        return re.getBody();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

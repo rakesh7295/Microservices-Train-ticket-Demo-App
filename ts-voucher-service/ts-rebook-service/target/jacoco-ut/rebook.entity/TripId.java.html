@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TripId.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-rebook-service</a> &gt; <a href="index.source.html" class="el_package">rebook.entity</a> &gt; <span class="el_source">TripId.java</span></div><h1>TripId.java</h1><pre class="source lang-java linenums">package rebook.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author fdse
+ */
+<span class="nc bnc" id="L10" title="All 22 branches missed.">@Data</span>
+public class TripId implements Serializable{
+<span class="nc" id="L12">    private Type type;</span>
+<span class="nc" id="L13">    private String number;</span>
+
+
+<span class="nc" id="L16">    public TripId(){</span>
+        //Default Constructor
+<span class="nc" id="L18">    }</span>
+
+<span class="nc" id="L20">    public TripId(String trainNumber){</span>
+<span class="nc" id="L21">        char type0 = trainNumber.charAt(0);</span>
+<span class="nc bnc" id="L22" title="All 6 branches missed.">        switch(type0){</span>
+<span class="nc" id="L23">            case 'G': this.type = Type.G;</span>
+<span class="nc" id="L24">                break;</span>
+<span class="nc" id="L25">            case 'D': this.type = Type.D;</span>
+<span class="nc" id="L26">                break;</span>
+<span class="nc" id="L27">            case 'Z': this.type = Type.Z;</span>
+<span class="nc" id="L28">                break;</span>
+<span class="nc" id="L29">            case 'T': this.type = Type.T;</span>
+<span class="nc" id="L30">                break;</span>
+<span class="nc" id="L31">            case 'K': this.type = Type.K;</span>
+<span class="nc" id="L32">                break;</span>
+            default:break;
+        }
+
+<span class="nc" id="L36">        this.number = trainNumber.substring(1);</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public String toString(){
+<span class="nc" id="L41">        return type.getName() + number;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SeatServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-seat-service</a> &gt; <a href="index.source.html" class="el_package">seat.service</a> &gt; <span class="el_source">SeatServiceImpl.java</span></div><h1>SeatServiceImpl.java</h1><pre class="source lang-java linenums">package seat.service;
+
+import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import seat.entity.*;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+/**
+ * @author fdse
+ */
+@Service
+<span class="fc" id="L24">public class SeatServiceImpl implements SeatService {</span>
+    @Autowired
+    RestTemplate restTemplate;
+
+<span class="fc" id="L28">    private static final Logger LOGGER = LoggerFactory.getLogger(SeatServiceImpl.class);</span>
+
+    @Override
+    public Response distributeSeat(Seat seatRequest, HttpHeaders headers) {
+        Response&lt;Route&gt; routeResult;
+
+        LeftTicketInfo leftTicketInfo;
+<span class="fc" id="L35">        TrainType trainTypeResult = null;</span>
+        ResponseEntity&lt;Response&lt;Route&gt;&gt; re;
+        ResponseEntity&lt;Response&lt;TrainType&gt;&gt; re2;
+        ResponseEntity&lt;Response&lt;LeftTicketInfo&gt;&gt; re3;
+
+        //Distinguish G\D from other trains
+<span class="fc" id="L41">        String trainNumber = seatRequest.getTrainNumber();</span>
+
+<span class="pc bpc" id="L43" title="1 of 4 branches missed.">        if (trainNumber.startsWith(&quot;G&quot;) || trainNumber.startsWith(&quot;D&quot;)) {</span>
+<span class="fc" id="L44">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] TrainNumber start with G|D&quot;);</span>
+
+            //Call the microservice to query all the station information for the train
+<span class="fc" id="L47">            HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L48">            re = restTemplate.exchange(</span>
+                    &quot;http://ts-travel-service:12346/api/v1/travelservice/routes/&quot; + trainNumber,
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L52">                    new ParameterizedTypeReference&lt;Response&lt;Route&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L54">            routeResult = re.getBody();</span>
+<span class="fc" id="L55">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] The result of getRouteResult is {}&quot;, routeResult.getMsg());</span>
+
+            //Call the microservice to query for residual Ticket information: the set of the Ticket sold for the specified seat type
+<span class="fc" id="L58">            requestEntity = new HttpEntity(seatRequest, headers);</span>
+<span class="fc" id="L59">            re3 = restTemplate.exchange(</span>
+                    &quot;http://ts-order-service:12031/api/v1/orderservice/order/tickets&quot;,
+                    HttpMethod.POST,
+                    requestEntity,
+<span class="fc" id="L63">                    new ParameterizedTypeReference&lt;Response&lt;LeftTicketInfo&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L65">            SeatServiceImpl.LOGGER.info(&quot;Left ticket info is : {}&quot;, re3.getBody().toString());</span>
+<span class="fc" id="L66">            leftTicketInfo = re3.getBody().getData();</span>
+
+            //Calls the microservice to query the total number of seats specified for that vehicle
+<span class="fc" id="L69">            requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L70">            re2 = restTemplate.exchange(</span>
+<span class="fc" id="L71">                    &quot;http://ts-travel-service:12346/api/v1/travelservice/train_types/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L74">                    new ParameterizedTypeReference&lt;Response&lt;TrainType&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L76">            Response&lt;TrainType&gt; trainTypeResponse = re2.getBody();</span>
+<span class="fc" id="L77">            trainTypeResult = trainTypeResponse.getData();</span>
+
+<span class="fc" id="L79">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat 1] The result of getTrainTypeResult is {}&quot;, trainTypeResponse.toString());</span>
+<span class="fc" id="L80">        } else {</span>
+<span class="fc" id="L81">            SeatServiceImpl.LOGGER.info(&quot;[SeatService] TrainNumber start with other capital&quot;);</span>
+            //Call the micro service to query all the station information for the trains
+<span class="fc" id="L83">            HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L84">            re = restTemplate.exchange(</span>
+<span class="fc" id="L85">                    &quot;http://ts-travel2-service:16346/api/v1/travel2service/routes/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L88">                    new ParameterizedTypeReference&lt;Response&lt;Route&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L90">            routeResult = re.getBody();</span>
+<span class="fc" id="L91">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] The result of getRouteResult is {}&quot;, routeResult.toString());</span>
+
+            //Call the microservice to query for residual Ticket information: the set of the Ticket sold for the specified seat type
+<span class="fc" id="L94">            requestEntity = new HttpEntity(seatRequest, headers);</span>
+<span class="fc" id="L95">            re3 = restTemplate.exchange(</span>
+                    &quot;http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/tickets&quot;,
+                    HttpMethod.POST,
+                    requestEntity,
+<span class="fc" id="L99">                    new ParameterizedTypeReference&lt;Response&lt;LeftTicketInfo&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L101">            SeatServiceImpl.LOGGER.info(&quot;Left ticket info is : {}&quot;, re3.getBody().toString());</span>
+<span class="fc" id="L102">            leftTicketInfo = re3.getBody().getData();</span>
+
+            //Calls the microservice to query the total number of seats specified for that vehicle
+<span class="fc" id="L105">            requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L106">            re2 = restTemplate.exchange(</span>
+<span class="fc" id="L107">                    &quot;http://ts-travel2-service:16346/api/v1/travel2service/train_types/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L110">                    new ParameterizedTypeReference&lt;Response&lt;TrainType&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L112">            Response&lt;TrainType&gt; trainTypeResponse = re2.getBody();</span>
+<span class="fc" id="L113">            trainTypeResult = trainTypeResponse.getData();</span>
+<span class="fc" id="L114">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat 2] The result of getTrainTypeResult is {}&quot;, trainTypeResponse.toString());</span>
+        }
+
+
+        //Assign seats
+<span class="fc" id="L119">        List&lt;String&gt; stationList = routeResult.getData().getStations();</span>
+<span class="fc" id="L120">        int seatTotalNum = 0;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (seatRequest.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {</span>
+<span class="fc" id="L122">            seatTotalNum = trainTypeResult.getConfortClass();</span>
+<span class="fc" id="L123">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] The request seat type is confortClass and the total num is {}&quot;, seatTotalNum);</span>
+        } else {
+<span class="fc" id="L125">            seatTotalNum = trainTypeResult.getEconomyClass();</span>
+<span class="fc" id="L126">            SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] The request seat type is economyClass and the total num is {}&quot;, seatTotalNum);</span>
+        }
+<span class="fc" id="L128">        String startStation = seatRequest.getStartStation();</span>
+<span class="fc" id="L129">        Ticket ticket = new Ticket();</span>
+<span class="fc" id="L130">        ticket.setStartStation(startStation);</span>
+<span class="fc" id="L131">        ticket.setDestStation(seatRequest.getDestStation());</span>
+
+        //Assign new tickets
+<span class="fc" id="L134">        Random rand = new Random();</span>
+<span class="fc" id="L135">        int range = seatTotalNum;</span>
+<span class="fc" id="L136">        int seat = rand.nextInt(range) + 1;</span>
+
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        if(leftTicketInfo != null) {</span>
+<span class="nc" id="L139">            Set&lt;Ticket&gt; soldTickets = leftTicketInfo.getSoldTickets();</span>
+            //Give priority to tickets already sold
+<span class="nc bnc" id="L141" title="All 2 branches missed.">            for (Ticket soldTicket : soldTickets) {</span>
+<span class="nc" id="L142">                String soldTicketDestStation = soldTicket.getDestStation();</span>
+                //Tickets can be allocated if the sold ticket's end station before the start station of the request
+<span class="nc bnc" id="L144" title="All 2 branches missed.">                if (stationList.indexOf(soldTicketDestStation) &lt; stationList.indexOf(startStation)) {</span>
+<span class="nc" id="L145">                    ticket.setSeatNo(soldTicket.getSeatNo());</span>
+<span class="nc" id="L146">                    SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] Use the previous distributed seat number! {}&quot;, soldTicket.getSeatNo());</span>
+<span class="nc" id="L147">                    return new Response&lt;&gt;(1, &quot;Use the previous distributed seat number!&quot;, ticket);</span>
+                }
+<span class="nc" id="L149">            }</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            while (isContained(soldTickets, seat)) {</span>
+<span class="nc" id="L151">                seat = rand.nextInt(range) + 1;</span>
+            }
+        }
+<span class="fc" id="L154">        ticket.setSeatNo(seat);</span>
+<span class="fc" id="L155">        SeatServiceImpl.LOGGER.info(&quot;[SeatService distributeSeat] Use a new seat number! {}&quot;, seat);</span>
+<span class="fc" id="L156">        return new Response&lt;&gt;(1, &quot;Use a new seat number!&quot;, ticket);</span>
+    }
+
+    private boolean isContained(Set&lt;Ticket&gt; soldTickets, int seat) {
+        //Check that the seat number has been used
+<span class="nc" id="L161">        boolean result = false;</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        for (Ticket soldTicket : soldTickets) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (soldTicket.getSeatNo() == seat) {</span>
+<span class="nc" id="L164">                return true;</span>
+            }
+<span class="nc" id="L166">        }</span>
+<span class="nc" id="L167">        return result;</span>
+    }
+
+    @Override
+    public Response getLeftTicketOfInterval(Seat seatRequest, HttpHeaders headers) {
+<span class="fc" id="L172">        int numOfLeftTicket = 0;</span>
+        Response&lt;Route&gt; routeResult;
+        TrainType trainTypeResult;
+        LeftTicketInfo leftTicketInfo;
+
+        ResponseEntity&lt;Response&lt;Route&gt;&gt; re;
+        ResponseEntity&lt;Response&lt;TrainType&gt;&gt; re2;
+        ResponseEntity&lt;Response&lt;LeftTicketInfo&gt;&gt; re3;
+
+        //Distinguish G\D from other trains
+<span class="fc" id="L182">        String trainNumber = seatRequest.getTrainNumber();</span>
+<span class="fc" id="L183">        SeatServiceImpl.LOGGER.info(&quot;Seat request To String: {}&quot;, seatRequest.toString());</span>
+<span class="pc bpc" id="L184" title="1 of 4 branches missed.">        if (trainNumber.startsWith(&quot;G&quot;) || trainNumber.startsWith(&quot;D&quot;)) {</span>
+<span class="fc" id="L185">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] TrainNumber start with G|D {}&quot;, trainNumber);</span>
+
+            //Call the micro service to query all the station information for the trains
+<span class="fc" id="L188">            HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L189">            re = restTemplate.exchange(</span>
+                    &quot;http://ts-travel-service:12346/api/v1/travelservice/routes/&quot; + trainNumber,
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L193">                    new ParameterizedTypeReference&lt;Response&lt;Route&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L195">            routeResult = re.getBody();</span>
+<span class="fc" id="L196">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The result of getRouteResult is {}&quot;, routeResult.getMsg());</span>
+
+            //Call the micro service to query for residual Ticket information: the set of the Ticket sold for the specified seat type
+<span class="fc" id="L199">            requestEntity = new HttpEntity(seatRequest, headers);</span>
+<span class="fc" id="L200">            re3 = restTemplate.exchange(</span>
+                    &quot;http://ts-order-service:12031/api/v1/orderservice/order/tickets&quot;,
+                    HttpMethod.POST,
+                    requestEntity,
+<span class="fc" id="L204">                    new ParameterizedTypeReference&lt;Response&lt;LeftTicketInfo&gt;&gt;() {</span>
+                    });
+
+<span class="fc" id="L207">            SeatServiceImpl.LOGGER.info(&quot;Get Order tickets result is : {}&quot;, re3);</span>
+<span class="fc" id="L208">            leftTicketInfo = re3.getBody().getData();</span>
+
+            //Calls the microservice to query the total number of seats specified for that vehicle
+<span class="fc" id="L211">            requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L212">            re2 = restTemplate.exchange(</span>
+<span class="fc" id="L213">                    &quot;http://ts-travel-service:12346/api/v1/travelservice/train_types/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L216">                    new ParameterizedTypeReference&lt;Response&lt;TrainType&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L218">            Response&lt;TrainType&gt; trainTypeResponse = re2.getBody();</span>
+
+
+<span class="fc" id="L221">            trainTypeResult = trainTypeResponse.getData();</span>
+<span class="fc" id="L222">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The result of getTrainTypeResult is {}&quot;, trainTypeResponse.toString());</span>
+<span class="fc" id="L223">        } else {</span>
+<span class="fc" id="L224">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] TrainNumber start with other capital&quot;);</span>
+            //Call the micro service to query all the station information for the trains
+<span class="fc" id="L226">            HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L227">            re = restTemplate.exchange(</span>
+<span class="fc" id="L228">                    &quot;http://ts-travel2-service:16346/api/v1/travel2service/routes/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L231">                    new ParameterizedTypeReference&lt;Response&lt;Route&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L233">            routeResult = re.getBody();</span>
+<span class="fc" id="L234">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The result of getRouteResult is {}&quot;, routeResult.toString());</span>
+
+            //Call the micro service to query for residual Ticket information: the set of the Ticket sold for the specified seat type
+<span class="fc" id="L237">            requestEntity = new HttpEntity(seatRequest, headers);</span>
+<span class="fc" id="L238">            re3 = restTemplate.exchange(</span>
+                    &quot;http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/tickets&quot;,
+                    HttpMethod.POST,
+                    requestEntity,
+<span class="fc" id="L242">                    new ParameterizedTypeReference&lt;Response&lt;LeftTicketInfo&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L244">            SeatServiceImpl.LOGGER.info(&quot;Get Order tickets result is : {}&quot;, re3);</span>
+<span class="fc" id="L245">            leftTicketInfo = re3.getBody().getData();</span>
+
+
+            //Calls the microservice to query the total number of seats specified for that vehicle
+<span class="fc" id="L249">            requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L250">            re2 = restTemplate.exchange(</span>
+<span class="fc" id="L251">                    &quot;http://ts-travel2-service:16346/api/v1/travel2service/train_types/&quot; + seatRequest.getTrainNumber(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L254">                    new ParameterizedTypeReference&lt;Response&lt;TrainType&gt;&gt;() {</span>
+                    });
+<span class="fc" id="L256">            Response&lt;TrainType&gt; trainTypeResponse = re2.getBody();</span>
+<span class="fc" id="L257">            trainTypeResult = trainTypeResponse.getData();</span>
+<span class="fc" id="L258">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The result of getTrainTypeResult is {}&quot;, trainTypeResponse.toString());</span>
+        }
+
+        //Counting the seats remaining in certain sections
+<span class="fc" id="L262">        List&lt;String&gt; stationList = routeResult.getData().getStations();</span>
+        int seatTotalNum;
+<span class="fc bfc" id="L264" title="All 2 branches covered.">        if (seatRequest.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {</span>
+<span class="fc" id="L265">            seatTotalNum = trainTypeResult.getConfortClass();</span>
+<span class="fc" id="L266">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The request seat type is confortClass and the total num is {}&quot;, seatTotalNum);</span>
+        } else {
+<span class="fc" id="L268">            seatTotalNum = trainTypeResult.getEconomyClass();</span>
+<span class="fc" id="L269">            SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The request seat type is economyClass and the total num is {}&quot;, seatTotalNum);</span>
+        }
+
+<span class="fc" id="L272">        int solidTicketSize = 0;</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">        if (leftTicketInfo != null) {</span>
+<span class="nc" id="L274">            String startStation = seatRequest.getStartStation();</span>
+<span class="nc" id="L275">            Set&lt;Ticket&gt; soldTickets = leftTicketInfo.getSoldTickets();</span>
+<span class="nc" id="L276">            solidTicketSize = soldTickets.size();</span>
+            //To find out if tickets already sold are available
+<span class="nc bnc" id="L278" title="All 2 branches missed.">            for (Ticket soldTicket : soldTickets) {</span>
+<span class="nc" id="L279">                String soldTicketDestStation = soldTicket.getDestStation();</span>
+                //Tickets can be allocated if the sold ticket's end station before the start station of the request
+<span class="nc bnc" id="L281" title="All 2 branches missed.">                if (stationList.indexOf(soldTicketDestStation) &lt; stationList.indexOf(startStation)) {</span>
+<span class="nc" id="L282">                    SeatServiceImpl.LOGGER.info(&quot;[SeatService getLeftTicketOfInterval] The previous distributed seat number is usable! {}&quot;, soldTicket.getSeatNo());</span>
+<span class="nc" id="L283">                    numOfLeftTicket++;</span>
+                }
+<span class="nc" id="L285">            }</span>
+        }
+        //Count the unsold tickets
+
+<span class="fc" id="L289">        double direstPart = getDirectProportion(headers);</span>
+<span class="fc" id="L290">        Route route = routeResult.getData();</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        if (route.getStations().get(0).equals(seatRequest.getStartStation()) &amp;&amp;</span>
+<span class="nc bnc" id="L292" title="All 2 branches missed.">                route.getStations().get(route.getStations().size() - 1).equals(seatRequest.getDestStation())) {</span>
+            //do nothing
+        } else {
+<span class="fc" id="L295">            direstPart = 1.0 - direstPart;</span>
+        }
+
+<span class="fc" id="L298">        int unusedNum = (int) (seatTotalNum * direstPart) - solidTicketSize;</span>
+<span class="fc" id="L299">        numOfLeftTicket += unusedNum;</span>
+
+<span class="fc" id="L301">        return new Response&lt;&gt;(1, &quot;Get Left Ticket of Internal Success&quot;, numOfLeftTicket);</span>
+    }
+
+    private double getDirectProportion(HttpHeaders headers) {
+
+<span class="fc" id="L306">        String configName = &quot;DirectTicketAllocationProportion&quot;;</span>
+<span class="fc" id="L307">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L308">        ResponseEntity&lt;Response&lt;Config&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-config-service:15679/api/v1/configservice/configs/&quot; + configName,
+                HttpMethod.GET,
+                requestEntity,
+<span class="fc" id="L312">                new ParameterizedTypeReference&lt;Response&lt;Config&gt;&gt;() {</span>
+                });
+<span class="fc" id="L314">        Response&lt;Config&gt; configValue = re.getBody();</span>
+<span class="fc" id="L315">        SeatServiceImpl.LOGGER.info(&quot;Configs is : {}&quot;, configValue.getData().toString());</span>
+<span class="fc" id="L316">        return Double.parseDouble(configValue.getData().getValue());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

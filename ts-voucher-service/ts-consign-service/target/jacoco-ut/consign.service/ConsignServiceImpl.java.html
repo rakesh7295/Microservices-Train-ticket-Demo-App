@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsignServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-consign-price-service</a> &gt; <a href="index.source.html" class="el_package">consign.service</a> &gt; <span class="el_source">ConsignServiceImpl.java</span></div><h1>ConsignServiceImpl.java</h1><pre class="source lang-java linenums">package consign.service;
+
+import consign.entity.ConsignRecord;
+import consign.entity.Consign;
+import consign.repository.ConsignRepository;
+import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * @author fdse
+ */
+@Service
+<span class="fc" id="L25">public class ConsignServiceImpl implements ConsignService {</span>
+    @Autowired
+    ConsignRepository repository;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+<span class="fc" id="L32">    private static final Logger LOGGER = LoggerFactory.getLogger(ConsignServiceImpl.class);</span>
+
+    @Override
+    public Response insertConsignRecord(Consign consignRequest, HttpHeaders headers) {
+<span class="fc" id="L36">        ConsignServiceImpl.LOGGER.info(&quot;[Consign servie] [ Insert new consign record] {}&quot;, consignRequest.getOrderId());</span>
+
+<span class="fc" id="L38">        ConsignRecord consignRecord = new ConsignRecord();</span>
+        //Set the record attribute
+<span class="fc" id="L40">        consignRecord.setId(UUID.randomUUID());</span>
+<span class="fc" id="L41">        LOGGER.info(&quot;Order ID is :&quot; + consignRequest.getOrderId());</span>
+<span class="fc" id="L42">        consignRecord.setOrderId(consignRequest.getOrderId());</span>
+<span class="fc" id="L43">        consignRecord.setAccountId(consignRequest.getAccountId());</span>
+<span class="fc" id="L44">        ConsignServiceImpl.LOGGER.info(&quot;The handle date is {}&quot;, consignRequest.getHandleDate());</span>
+<span class="fc" id="L45">        ConsignServiceImpl.LOGGER.info(&quot;The target date is {}&quot;, consignRequest.getTargetDate());</span>
+<span class="fc" id="L46">        consignRecord.setHandleDate(consignRequest.getHandleDate());</span>
+<span class="fc" id="L47">        consignRecord.setTargetDate(consignRequest.getTargetDate());</span>
+<span class="fc" id="L48">        consignRecord.setFrom(consignRequest.getFrom());</span>
+<span class="fc" id="L49">        consignRecord.setTo(consignRequest.getTo());</span>
+<span class="fc" id="L50">        consignRecord.setConsignee(consignRequest.getConsignee());</span>
+<span class="fc" id="L51">        consignRecord.setPhone(consignRequest.getPhone());</span>
+<span class="fc" id="L52">        consignRecord.setWeight(consignRequest.getWeight());</span>
+
+        //get the price
+<span class="fc" id="L55">        HttpEntity requestEntity = new HttpEntity(null, headers);</span>
+<span class="fc" id="L56">        ResponseEntity&lt;Response&lt;Double&gt;&gt; re = restTemplate.exchange(</span>
+<span class="fc" id="L57">                &quot;http://ts-consign-price-service:16110/api/v1/consignpriceservice/consignprice/&quot; + consignRequest.getWeight() + &quot;/&quot; + consignRequest.isWithin(),</span>
+                HttpMethod.GET,
+                requestEntity,
+<span class="fc" id="L60">                new ParameterizedTypeReference&lt;Response&lt;Double&gt;&gt;() {</span>
+                });
+<span class="fc" id="L62">        consignRecord.setPrice(re.getBody().getData());</span>
+
+<span class="fc" id="L64">        LOGGER.info(&quot;SAVE consign info : &quot; + consignRecord.toString());</span>
+<span class="fc" id="L65">        ConsignRecord result = repository.save(consignRecord);</span>
+<span class="fc" id="L66">        LOGGER.info(&quot;SAVE consign result : &quot; + result.toString());</span>
+<span class="fc" id="L67">        return new Response&lt;&gt;(1, &quot;You have consigned successfully! The price is &quot; + result.getPrice(), result);</span>
+    }
+
+    @Override
+    public Response updateConsignRecord(Consign consignRequest, HttpHeaders headers) {
+<span class="fc" id="L72">        ConsignServiceImpl.LOGGER.info(&quot;[Consign servie] [ Update consign record]&quot;);</span>
+
+<span class="fc" id="L74">        ConsignRecord originalRecord = repository.findById(consignRequest.getId());</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (originalRecord == null) {</span>
+<span class="nc" id="L76">            return this.insertConsignRecord(consignRequest, headers);</span>
+        }
+<span class="fc" id="L78">        originalRecord.setAccountId(consignRequest.getAccountId());</span>
+<span class="fc" id="L79">        originalRecord.setHandleDate(consignRequest.getHandleDate());</span>
+<span class="fc" id="L80">        originalRecord.setTargetDate(consignRequest.getTargetDate());</span>
+<span class="fc" id="L81">        originalRecord.setFrom(consignRequest.getFrom());</span>
+<span class="fc" id="L82">        originalRecord.setTo(consignRequest.getTo());</span>
+<span class="fc" id="L83">        originalRecord.setConsignee(consignRequest.getConsignee());</span>
+<span class="fc" id="L84">        originalRecord.setPhone(consignRequest.getPhone());</span>
+        //Recalculate price
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (originalRecord.getWeight() != consignRequest.getWeight()) {</span>
+<span class="fc" id="L87">            HttpEntity requestEntity = new HttpEntity&lt;&gt;(null, headers);</span>
+<span class="fc" id="L88">            ResponseEntity&lt;Response&lt;Double&gt;&gt; re = restTemplate.exchange(</span>
+<span class="fc" id="L89">                    &quot;http://ts-consign-price-service:16110/api/v1/consignpriceservice/consignprice/&quot; + consignRequest.getWeight() + &quot;/&quot; + consignRequest.isWithin(),</span>
+                    HttpMethod.GET,
+                    requestEntity,
+<span class="fc" id="L92">                    new ParameterizedTypeReference&lt;Response&lt;Double&gt;&gt;() {</span>
+                    });
+
+<span class="fc" id="L95">            originalRecord.setPrice(re.getBody().getData());</span>
+<span class="fc" id="L96">        } else {</span>
+<span class="fc" id="L97">            originalRecord.setPrice(originalRecord.getPrice());</span>
+        }
+<span class="fc" id="L99">        originalRecord.setConsignee(consignRequest.getConsignee());</span>
+<span class="fc" id="L100">        originalRecord.setPhone(consignRequest.getPhone());</span>
+<span class="fc" id="L101">        originalRecord.setWeight(consignRequest.getWeight());</span>
+<span class="fc" id="L102">        repository.save(originalRecord);</span>
+<span class="fc" id="L103">        return new Response&lt;&gt;(1, &quot;Update consign success&quot;, originalRecord);</span>
+    }
+
+    @Override
+    public Response queryByAccountId(UUID accountId, HttpHeaders headers) {
+<span class="fc" id="L108">        List&lt;ConsignRecord&gt; consignRecords = repository.findByAccountId(accountId);</span>
+<span class="pc bpc" id="L109" title="1 of 4 branches missed.">        if (consignRecords != null &amp;&amp; !consignRecords.isEmpty()) {</span>
+<span class="fc" id="L110">            return new Response&lt;&gt;(1, &quot;Find consign by account id success&quot;, consignRecords);</span>
+        }else {
+<span class="fc" id="L112">            return new Response&lt;&gt;(0, &quot;No Content according to accountId&quot;, null);</span>
+        }
+    }
+
+    @Override
+    public Response queryByOrderId(UUID orderId, HttpHeaders headers) {
+<span class="fc" id="L118">        ConsignRecord consignRecords = repository.findByOrderId(orderId);</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (consignRecords != null ) {</span>
+<span class="fc" id="L120">            return new Response&lt;&gt;(1, &quot;Find consign by order id success&quot;, consignRecords);</span>
+        }else {
+<span class="fc" id="L122">            return new Response&lt;&gt;(0, &quot;No Content according to order id&quot;, null);</span>
+        }
+    }
+
+    @Override
+    public Response queryByConsignee(String consignee, HttpHeaders headers) {
+<span class="fc" id="L128">        List&lt;ConsignRecord&gt; consignRecords = repository.findByConsignee(consignee);</span>
+<span class="pc bpc" id="L129" title="1 of 4 branches missed.">        if (consignRecords != null &amp;&amp; !consignRecords.isEmpty()) {</span>
+<span class="fc" id="L130">            return new Response&lt;&gt;(1, &quot;Find consign by consignee success&quot;, consignRecords);</span>
+        }else {
+<span class="fc" id="L132">            return new Response&lt;&gt;(0, &quot;No Content according to consignee&quot;, null);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

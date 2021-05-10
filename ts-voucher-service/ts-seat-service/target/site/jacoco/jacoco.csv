@@ -1,0 +1,26 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-seat-service,seat,SeatApplication,11,0,0,0,4,0,3,0,3,0
+ts-seat-service,seat.entity,Route,201,54,46,0,0,8,30,8,7,8
+ts-seat-service,seat.entity,TrainType,138,50,20,0,11,7,17,8,7,8
+ts-seat-service,seat.entity,Seat,168,93,40,0,0,14,23,12,3,12
+ts-seat-service,seat.entity,Ticket,137,15,24,0,3,3,19,4,7,4
+ts-seat-service,seat.entity,Config,143,38,30,0,5,6,21,6,6,6
+ts-seat-service,seat.entity,SeatClass,33,126,4,0,6,15,4,3,2,3
+ts-seat-service,seat.entity,LeftTicketInfo,83,0,14,0,5,0,14,0,7,0
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl,126,659,21,13,26,112,14,9,1,5
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.service,SeatServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-seat-service,seat.controller,SeatController,0,19,0,0,0,4,0,4,0,4
+ts-seat-service,seat.config,SecurityConfig,95,0,0,0,17,0,4,0,4,0
+ts-seat-service,seat.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0

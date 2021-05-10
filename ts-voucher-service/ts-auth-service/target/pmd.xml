@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:46:05.440">
+<file name="/home/rakesh/project/train-ticket/ts-auth-service/src/main/java/auth/constant/InfoConstant.java">
+<violation beginline="18" endline="18" begincolumn="56" endcolumn="104" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="auth.constant" class="InfoConstant" priority="3">
+请不要使用行尾注释
+</violation>
+<violation beginline="25" endline="25" begincolumn="43" endcolumn="52" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="auth.constant" class="InfoConstant" priority="3">
+请不要使用行尾注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-auth-service/src/main/java/auth/security/jwt/JWTProvider.java">
+<violation beginline="18" endline="45" begincolumn="8" endcolumn="1" rule="ClassNamingShouldBeCamelRule" ruleset="AlibabaJavaNaming" package="auth.security.jwt" class="JWTProvider" priority="3">
+【JWTProvider】不符合UpperCamelCase命名风格
+</violation>
+</file>
+</pmd>

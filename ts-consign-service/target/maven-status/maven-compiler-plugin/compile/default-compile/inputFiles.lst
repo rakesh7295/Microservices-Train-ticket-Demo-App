@@ -1,0 +1,10 @@
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/entity/Consign.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/entity/GetPriceDomain.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/service/ConsignServiceImpl.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/repository/ConsignRepository.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/controller/ConsignController.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/ConsignApplication.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/service/ConsignService.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/config/SecurityConfig.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/entity/InsertConsignRecordResult.java
+/home/rakesh/project/train-ticket/ts-consign-service/src/main/java/consign/entity/ConsignRecord.java

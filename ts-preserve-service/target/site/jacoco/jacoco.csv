@@ -1,0 +1,41 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-preserve-service,preserve.entity,OrderTicketsInfo,645,168,116,0,0,23,72,29,14,29
+ts-preserve-service,preserve.entity,Seat,129,127,28,12,0,9,22,14,2,14
+ts-preserve-service,preserve.entity,TripAllDetail,160,54,34,0,3,6,25,6,8,6
+ts-preserve-service,preserve.entity,FoodOrder,297,19,50,0,7,3,39,5,14,5
+ts-preserve-service,preserve.entity,Consign,390,138,84,0,1,13,47,23,5,23
+ts-preserve-service,preserve.entity,Type,114,0,4,0,20,0,9,0,7,0
+ts-preserve-service,preserve.entity,OrderTicketsInfo.OrderTicketsInfoBuilder,97,133,0,0,0,1,1,20,1,20
+ts-preserve-service,preserve.entity,User.UserBuilder,98,0,0,0,1,0,10,0,10,0
+ts-preserve-service,preserve.entity,Ticket,142,10,24,0,2,4,20,3,8,3
+ts-preserve-service,preserve.entity,Contacts,127,24,18,0,18,6,18,7,9,7
+ts-preserve-service,preserve.entity,Assurance,184,0,30,0,12,0,27,0,12,0
+ts-preserve-service,preserve.entity,NotifyInfo,427,43,86,0,10,3,57,11,14,11
+ts-preserve-service,preserve.entity,User,318,17,50,0,7,4,41,5,16,5
+ts-preserve-service,preserve.entity,Order,234,131,38,0,30,23,29,26,10,26
+ts-preserve-service,preserve.entity,DocumentType,99,0,4,0,16,0,7,0,5,0
+ts-preserve-service,preserve.entity,TrainType,147,0,18,0,11,0,21,0,12,0
+ts-preserve-service,preserve.entity,Travel,193,19,38,0,4,3,27,5,8,5
+ts-preserve-service,preserve.entity,TripResponse,233,74,50,0,0,8,33,11,8,11
+ts-preserve-service,preserve.entity,Trip,362,93,70,0,18,16,48,10,13,10
+ts-preserve-service,preserve.entity,TripAllDetailInfo,193,19,38,0,4,3,27,5,8,5
+ts-preserve-service,preserve.entity,Gender,99,0,4,0,16,0,7,0,5,0
+ts-preserve-service,preserve.entity,AssuranceType,78,0,4,0,21,0,11,0,9,0
+ts-preserve-service,preserve.entity,TripId,155,0,28,0,20,0,26,0,10,0
+ts-preserve-service,preserve.entity,SeatClass,5,154,1,3,1,20,1,6,0,5
+ts-preserve-service,preserve.entity,TravelResult,181,10,28,0,3,4,24,3,10,3
+ts-preserve-service,preserve.entity,OrderStatus,33,102,4,0,6,13,4,3,2,3
+ts-preserve-service,preserve.entity,Account,327,0,50,0,16,0,44,0,19,0
+ts-preserve-service,preserve.entity,OrderTicketsResult,156,0,26,0,6,0,24,0,11,0
+ts-preserve-service,preserve.config,SecurityConfig,89,0,0,0,16,0,4,0,4,0
+ts-preserve-service,preserve.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-preserve-service,preserve.service,PreserveServiceImpl,172,866,19,15,31,167,17,14,0,14
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.service,PreserveServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-preserve-service,preserve.controller,PreserveController,0,36,0,0,0,5,0,4,0,4
+ts-preserve-service,preserve,PreserveApplication,11,0,0,0,4,0,3,0,3,0

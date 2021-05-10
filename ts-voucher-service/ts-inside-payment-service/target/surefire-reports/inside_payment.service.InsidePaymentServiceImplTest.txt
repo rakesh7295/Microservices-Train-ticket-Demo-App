@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: inside_payment.service.InsidePaymentServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 sec - in inside_payment.service.InsidePaymentServiceImplTest

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-10T13:48:38.106">
+<file name="/home/rakesh/project/train-ticket/ts-common/src/main/java/edu/fudan/common/security/jwt/JWTFilter.java">
+<violation beginline="17" endline="32" begincolumn="8" endcolumn="1" rule="ClassNamingShouldBeCamelRule" ruleset="AlibabaJavaNaming" package="edu.fudan.common.security.jwt" class="JWTFilter" priority="3">
+【JWTFilter】不符合UpperCamelCase命名风格
+</violation>
+</file>
+</pmd>

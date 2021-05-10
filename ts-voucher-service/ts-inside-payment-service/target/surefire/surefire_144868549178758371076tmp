@@ -1,0 +1,6 @@
+#surefire_14
+#Sat May 08 18:44:45 IST 2021
+basedir=/home/rakesh/project/train-ticket/ts-inside-payment-service
+pmd.failOnViolation=false
+user.dir=/home/rakesh/project/train-ticket/ts-inside-payment-service
+localRepository=/home/rakesh/.m2/repository

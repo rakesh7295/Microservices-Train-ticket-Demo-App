@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:44:43.810">
+<file name="/home/rakesh/project/train-ticket/ts-security-service/src/main/java/security/entity/Order.java">
+<violation beginline="106" endline="106" begincolumn="49" endcolumn="49" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="security.entity" class="Order" method="setTravelDate" priority="3">
+请不要使用行尾注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-security-service/src/main/java/security/repository/SecurityRepository.java">
+<violation beginline="17" endline="17" begincolumn="20" endcolumn="42" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.repository" class="SecurityRepository" method="findByName" priority="3">
+接口方法【findByName】必须使用javadoc注释
+</violation>
+<violation beginline="20" endline="20" begincolumn="20" endcolumn="36" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.repository" class="SecurityRepository" method="findById" priority="3">
+接口方法【findById】必须使用javadoc注释
+</violation>
+<violation beginline="23" endline="23" begincolumn="31" endcolumn="39" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.repository" class="SecurityRepository" method="findAll" priority="3">
+接口方法【findAll】必须使用javadoc注释
+</violation>
+<violation beginline="25" endline="25" begincolumn="10" endcolumn="28" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.repository" class="SecurityRepository" method="deleteById" priority="3">
+接口方法【deleteById】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-security-service/src/main/java/security/service/SecurityService.java">
+<violation beginline="12" endline="12" begincolumn="14" endcolumn="55" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.service" class="SecurityService" method="findAllSecurityConfig" priority="3">
+接口方法【findAllSecurityConfig】必须使用javadoc注释
+</violation>
+<violation beginline="14" endline="14" begincolumn="14" endcolumn="75" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.service" class="SecurityService" method="addNewSecurityConfig" priority="3">
+接口方法【addNewSecurityConfig】必须使用javadoc注释
+</violation>
+<violation beginline="16" endline="16" begincolumn="14" endcolumn="75" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.service" class="SecurityService" method="modifySecurityConfig" priority="3">
+接口方法【modifySecurityConfig】必须使用javadoc注释
+</violation>
+<violation beginline="18" endline="18" begincolumn="14" endcolumn="65" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.service" class="SecurityService" method="deleteSecurityConfig" priority="3">
+接口方法【deleteSecurityConfig】必须使用javadoc注释
+</violation>
+<violation beginline="20" endline="20" begincolumn="14" endcolumn="57" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="security.service" class="SecurityService" method="check" priority="3">
+接口方法【check】必须使用javadoc注释
+</violation>
+</file>
+</pmd>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PreserveServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-preserve-service</a> &gt; <a href="index.source.html" class="el_package">preserve.service</a> &gt; <span class="el_source">PreserveServiceImpl.java</span></div><h1>PreserveServiceImpl.java</h1><pre class="source lang-java linenums">package preserve.service;
+
+import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import preserve.entity.*;
+
+import java.util.Date;
+import java.util.UUID;
+
+/**
+ * @author fdse
+ */
+@Service
+<span class="fc" id="L23">public class PreserveServiceImpl implements PreserveService {</span>
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+<span class="fc" id="L28">    private static final Logger LOGGER = LoggerFactory.getLogger(PreserveServiceImpl.class);</span>
+
+    @Override
+    public Response preserve(OrderTicketsInfo oti, HttpHeaders headers) {
+        //1.detect ticket scalper
+<span class="fc" id="L33">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 1] Check Security&quot;);</span>
+
+<span class="fc" id="L35">        Response result = checkSecurity(oti.getAccountId(), headers);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (result.getStatus() == 0) {</span>
+<span class="nc" id="L37">            return new Response&lt;&gt;(0, result.getMsg(), null);</span>
+        }
+<span class="fc" id="L39">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 1] Check Security Complete&quot;);</span>
+        //2.Querying contact information -- modification, mediated by the underlying information micro service
+<span class="fc" id="L41">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 2] Find contacts&quot;);</span>
+<span class="fc" id="L42">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 2] Contacts Id: {}&quot;, oti.getContactsId());</span>
+
+<span class="fc" id="L44">        Response&lt;Contacts&gt; gcr = getContactsById(oti.getContactsId(), headers);</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (gcr.getStatus() == 0) {</span>
+<span class="nc" id="L46">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Get Contacts] Fail. {}&quot;, gcr.getMsg());</span>
+<span class="nc" id="L47">            return new Response&lt;&gt;(0, gcr.getMsg(), null);</span>
+        }
+<span class="fc" id="L49">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 2] Complete&quot;);</span>
+        //3.Check the info of train and the number of remaining tickets
+<span class="fc" id="L51">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 3] Check tickets num&quot;);</span>
+<span class="fc" id="L52">        TripAllDetailInfo gtdi = new TripAllDetailInfo();</span>
+
+<span class="fc" id="L54">        gtdi.setFrom(oti.getFrom());</span>
+<span class="fc" id="L55">        gtdi.setTo(oti.getTo());</span>
+
+<span class="fc" id="L57">        gtdi.setTravelDate(oti.getDate());</span>
+<span class="fc" id="L58">        gtdi.setTripId(oti.getTripId());</span>
+<span class="fc" id="L59">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 3] TripId: {}&quot;, oti.getTripId());</span>
+<span class="fc" id="L60">        Response&lt;TripAllDetail&gt; response = getTripAllDetailInformation(gtdi, headers);</span>
+<span class="fc" id="L61">        TripAllDetail gtdr = response.getData();</span>
+<span class="fc" id="L62">        LOGGER.info(&quot;TripAllDetail:&quot; + gtdr.toString());</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (response.getStatus() == 0) {</span>
+<span class="nc" id="L64">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Search For Trip Detail Information] {}&quot;, response.getMsg());</span>
+<span class="nc" id="L65">            return new Response&lt;&gt;(0, response.getMsg(), null);</span>
+        } else {
+<span class="fc" id="L67">            TripResponse tripResponse = gtdr.getTripResponse();</span>
+<span class="fc" id="L68">            LOGGER.info(&quot;TripResponse:&quot; + tripResponse.toString());</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">            if (oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">                if (tripResponse.getConfortClass() == 0) {</span>
+<span class="nc" id="L71">                    PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Check seat is enough] &quot;);</span>
+<span class="nc" id="L72">                    return new Response&lt;&gt;(0, &quot;Seat Not Enough&quot;, null);</span>
+                }
+            } else {
+<span class="nc bnc" id="L75" title="All 4 branches missed.">                if (tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode() &amp;&amp; tripResponse.getConfortClass() == 0) {</span>
+<span class="nc" id="L76">                    PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Check seat is enough] &quot;);</span>
+<span class="nc" id="L77">                    return new Response&lt;&gt;(0, &quot;Seat Not Enough&quot;, null);</span>
+                }
+            }
+        }
+<span class="fc" id="L81">        Trip trip = gtdr.getTrip();</span>
+<span class="fc" id="L82">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 3] Tickets Enough&quot;);</span>
+        //4.send the order request and set the order information
+<span class="fc" id="L84">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 4] Do Order&quot;);</span>
+<span class="fc" id="L85">        Contacts contacts = gcr.getData();</span>
+<span class="fc" id="L86">        Order order = new Order();</span>
+<span class="fc" id="L87">        UUID orderId = UUID.randomUUID();</span>
+<span class="fc" id="L88">        order.setId(orderId);</span>
+<span class="fc" id="L89">        order.setTrainNumber(oti.getTripId());</span>
+<span class="fc" id="L90">        order.setAccountId(UUID.fromString(oti.getAccountId()));</span>
+
+<span class="fc" id="L92">        String fromStationId = queryForStationId(oti.getFrom(), headers);</span>
+<span class="fc" id="L93">        String toStationId = queryForStationId(oti.getTo(), headers);</span>
+
+<span class="fc" id="L95">        order.setFrom(fromStationId);</span>
+<span class="fc" id="L96">        order.setTo(toStationId);</span>
+<span class="fc" id="L97">        order.setBoughtDate(new Date());</span>
+<span class="fc" id="L98">        order.setStatus(OrderStatus.NOTPAID.getCode());</span>
+<span class="fc" id="L99">        order.setContactsDocumentNumber(contacts.getDocumentNumber());</span>
+<span class="fc" id="L100">        order.setContactsName(contacts.getName());</span>
+<span class="fc" id="L101">        order.setDocumentType(contacts.getDocumentType());</span>
+
+<span class="fc" id="L103">        Travel query = new Travel();</span>
+<span class="fc" id="L104">        query.setTrip(trip);</span>
+<span class="fc" id="L105">        query.setStartingPlace(oti.getFrom());</span>
+<span class="fc" id="L106">        query.setEndPlace(oti.getTo());</span>
+<span class="fc" id="L107">        query.setDepartureTime(new Date());</span>
+
+<span class="fc" id="L109">        HttpEntity requestEntity = new HttpEntity(query, headers);</span>
+<span class="fc" id="L110">        ResponseEntity&lt;Response&lt;TravelResult&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L114">                new ParameterizedTypeReference&lt;Response&lt;TravelResult&gt;&gt;() {</span>
+                });
+<span class="fc" id="L116">        TravelResult resultForTravel = re.getBody().getData();</span>
+
+<span class="fc" id="L118">        order.setSeatClass(oti.getSeatType());</span>
+<span class="fc" id="L119">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Order] Order Travel Date: {}&quot;, oti.getDate().toString());</span>
+<span class="fc" id="L120">        order.setTravelDate(oti.getDate());</span>
+<span class="fc" id="L121">        order.setTravelTime(gtdr.getTripResponse().getStartingTime());</span>
+
+        //Dispatch the seat
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {</span>
+<span class="fc" id="L125">            Ticket ticket =</span>
+<span class="fc" id="L126">                    dipatchSeat(oti.getDate(),</span>
+<span class="fc" id="L127">                            order.getTrainNumber(), fromStationId, toStationId,</span>
+<span class="fc" id="L128">                            SeatClass.FIRSTCLASS.getCode(), headers);</span>
+<span class="fc" id="L129">            order.setSeatNumber(&quot;&quot; + ticket.getSeatNo());</span>
+<span class="fc" id="L130">            order.setSeatClass(SeatClass.FIRSTCLASS.getCode());</span>
+<span class="fc" id="L131">            order.setPrice(resultForTravel.getPrices().get(&quot;confortClass&quot;));</span>
+<span class="fc" id="L132">        } else {</span>
+<span class="nc" id="L133">            Ticket ticket =</span>
+<span class="nc" id="L134">                    dipatchSeat(oti.getDate(),</span>
+<span class="nc" id="L135">                            order.getTrainNumber(), fromStationId, toStationId,</span>
+<span class="nc" id="L136">                            SeatClass.SECONDCLASS.getCode(), headers);</span>
+<span class="nc" id="L137">            order.setSeatClass(SeatClass.SECONDCLASS.getCode());</span>
+<span class="nc" id="L138">            order.setSeatNumber(&quot;&quot; + ticket.getSeatNo());</span>
+<span class="nc" id="L139">            order.setPrice(resultForTravel.getPrices().get(&quot;economyClass&quot;));</span>
+        }
+
+<span class="fc" id="L142">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Order Price] Price is: {}&quot;, order.getPrice());</span>
+
+<span class="fc" id="L144">        Response&lt;Order&gt; cor = createOrder(order, headers);</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        if (cor.getStatus() == 0) {</span>
+<span class="nc" id="L146">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Create Order Fail] Create Order Fail.  Reason: {}&quot;, cor.getMsg());</span>
+<span class="nc" id="L147">            return new Response&lt;&gt;(0, cor.getMsg(), null);</span>
+        }
+<span class="fc" id="L149">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service] [Step 4] Do Order Complete&quot;);</span>
+
+<span class="fc" id="L151">        Response returnResponse = new Response&lt;&gt;(1, &quot;Success.&quot;, cor.getMsg());</span>
+        //5.Check insurance options
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        if (oti.getAssurance() == 0) {</span>
+<span class="nc" id="L154">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 5] Do not need to buy assurance&quot;);</span>
+        } else {
+<span class="fc" id="L156">            Response addAssuranceResult = addAssuranceForOrder(</span>
+<span class="fc" id="L157">                    oti.getAssurance(), cor.getData().getId().toString(), headers);</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">            if (addAssuranceResult.getStatus() == 1) {</span>
+<span class="fc" id="L159">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 5] Buy Assurance Success&quot;);</span>
+            } else {
+<span class="nc" id="L161">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 5] Buy Assurance Fail.&quot;);</span>
+<span class="nc" id="L162">                returnResponse.setMsg(&quot;Success.But Buy Assurance Fail.&quot;);</span>
+            }
+        }
+
+        //6.Increase the food order
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if (oti.getFoodType() != 0) {</span>
+
+<span class="fc" id="L169">            FoodOrder foodOrder = new FoodOrder();</span>
+<span class="fc" id="L170">            foodOrder.setOrderId(cor.getData().getId());</span>
+<span class="fc" id="L171">            foodOrder.setFoodType(oti.getFoodType());</span>
+<span class="fc" id="L172">            foodOrder.setFoodName(oti.getFoodName());</span>
+<span class="fc" id="L173">            foodOrder.setPrice(oti.getFoodPrice());</span>
+
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">            if (oti.getFoodType() == 2) {</span>
+<span class="nc" id="L176">                foodOrder.setStationName(oti.getStationName());</span>
+<span class="nc" id="L177">                foodOrder.setStoreName(oti.getStoreName());</span>
+<span class="nc" id="L178">                PreserveServiceImpl.LOGGER.info(&quot;[Food Service]!!!!!!!!!!!!!!!foodstore= {}   {}   {}&quot;, foodOrder.getFoodType(), foodOrder.getStationName(), foodOrder.getStoreName());</span>
+            }
+<span class="fc" id="L180">            Response afor = createFoodOrder(foodOrder, headers);</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">            if (afor.getStatus() == 1) {</span>
+<span class="fc" id="L182">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 6] Buy Food Success&quot;);</span>
+            } else {
+<span class="nc" id="L184">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 6] Buy Food Fail.&quot;);</span>
+<span class="nc" id="L185">                returnResponse.setMsg(&quot;Success.But Buy Food Fail.&quot;);</span>
+            }
+<span class="fc" id="L187">        } else {</span>
+<span class="nc" id="L188">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 6] Do not need to buy food&quot;);</span>
+        }
+
+        //7.add consign
+<span class="pc bpc" id="L192" title="2 of 4 branches missed.">        if (null != oti.getConsigneeName() &amp;&amp; !&quot;&quot;.equals(oti.getConsigneeName())) {</span>
+
+<span class="fc" id="L194">            Consign consignRequest = new Consign();</span>
+<span class="fc" id="L195">            consignRequest.setOrderId(cor.getData().getId());</span>
+<span class="fc" id="L196">            consignRequest.setAccountId(cor.getData().getAccountId());</span>
+<span class="fc" id="L197">            consignRequest.setHandleDate(oti.getHandleDate());</span>
+<span class="fc" id="L198">            consignRequest.setTargetDate(cor.getData().getTravelDate().toString());</span>
+<span class="fc" id="L199">            consignRequest.setFrom(cor.getData().getFrom());</span>
+<span class="fc" id="L200">            consignRequest.setTo(cor.getData().getTo());</span>
+<span class="fc" id="L201">            consignRequest.setConsignee(oti.getConsigneeName());</span>
+<span class="fc" id="L202">            consignRequest.setPhone(oti.getConsigneePhone());</span>
+<span class="fc" id="L203">            consignRequest.setWeight(oti.getConsigneeWeight());</span>
+<span class="fc" id="L204">            consignRequest.setWithin(oti.isWithin());</span>
+<span class="fc" id="L205">            LOGGER.info(&quot;CONSIGN INFO : &quot; +consignRequest.toString());</span>
+<span class="fc" id="L206">            Response icresult = createConsign(consignRequest, headers);</span>
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">            if (icresult.getStatus() == 1) {</span>
+<span class="fc" id="L208">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 7] Consign Success&quot;);</span>
+            } else {
+<span class="nc" id="L210">                PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 7] Consign Fail.&quot;);</span>
+<span class="nc" id="L211">                returnResponse.setMsg(&quot;Consign Fail.&quot;);</span>
+            }
+<span class="fc" id="L213">        } else {</span>
+<span class="nc" id="L214">            PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Step 7] Do not need to consign&quot;);</span>
+        }
+
+        //8.send notification
+<span class="fc" id="L218">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service]&quot;);</span>
+
+<span class="fc" id="L220">        User getUser = getAccount(order.getAccountId().toString(), headers);</span>
+
+<span class="fc" id="L222">        NotifyInfo notifyInfo = new NotifyInfo();</span>
+<span class="fc" id="L223">        notifyInfo.setDate(new Date().toString());</span>
+
+<span class="fc" id="L225">        notifyInfo.setEmail(getUser.getEmail());</span>
+<span class="fc" id="L226">        notifyInfo.setStartingPlace(order.getFrom());</span>
+<span class="fc" id="L227">        notifyInfo.setEndPlace(order.getTo());</span>
+<span class="fc" id="L228">        notifyInfo.setUsername(getUser.getUserName());</span>
+<span class="fc" id="L229">        notifyInfo.setSeatNumber(order.getSeatNumber());</span>
+<span class="fc" id="L230">        notifyInfo.setOrderNumber(order.getId().toString());</span>
+<span class="fc" id="L231">        notifyInfo.setPrice(order.getPrice());</span>
+<span class="fc" id="L232">        notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));</span>
+<span class="fc" id="L233">        notifyInfo.setStartingTime(order.getTravelTime().toString());</span>
+
+        // TODO: change to async message serivce
+        // sendEmail(notifyInfo, headers);
+
+<span class="fc" id="L238">        return returnResponse;</span>
+    }
+
+    public Ticket dipatchSeat(Date date, String tripId, String startStationId, String endStataionId, int seatType, HttpHeaders httpHeaders) {
+<span class="fc" id="L242">        Seat seatRequest = new Seat();</span>
+<span class="fc" id="L243">        seatRequest.setTravelDate(date);</span>
+<span class="fc" id="L244">        seatRequest.setTrainNumber(tripId);</span>
+<span class="fc" id="L245">        seatRequest.setStartStation(startStationId);</span>
+<span class="fc" id="L246">        seatRequest.setDestStation(endStataionId);</span>
+<span class="fc" id="L247">        seatRequest.setSeatType(seatType);</span>
+
+<span class="fc" id="L249">        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);</span>
+<span class="fc" id="L250">        ResponseEntity&lt;Response&lt;Ticket&gt;&gt; reTicket = restTemplate.exchange(</span>
+                &quot;http://ts-seat-service:18898/api/v1/seatservice/seats&quot;,
+                HttpMethod.POST,
+                requestEntityTicket,
+<span class="fc" id="L254">                new ParameterizedTypeReference&lt;Response&lt;Ticket&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L257">        return reTicket.getBody().getData();</span>
+    }
+
+    public boolean sendEmail(NotifyInfo notifyInfo, HttpHeaders httpHeaders) {
+<span class="fc" id="L261">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Send Email]&quot;);</span>
+<span class="fc" id="L262">        HttpEntity requestEntitySendEmail = new HttpEntity(notifyInfo, httpHeaders);</span>
+<span class="fc" id="L263">        ResponseEntity&lt;Boolean&gt; reSendEmail = restTemplate.exchange(</span>
+                &quot;http://ts-notification-service:17853/api/v1/notifyservice/notification/preserve_success&quot;,
+                HttpMethod.POST,
+                requestEntitySendEmail,
+                Boolean.class);
+
+<span class="fc" id="L269">        return reSendEmail.getBody();</span>
+    }
+
+    public User getAccount(String accountId, HttpHeaders httpHeaders) {
+<span class="fc" id="L273">        PreserveServiceImpl.LOGGER.info(&quot;[Cancel Order Service][Get Order By Id]&quot;);</span>
+
+<span class="fc" id="L275">        HttpEntity requestEntitySendEmail = new HttpEntity(httpHeaders);</span>
+<span class="fc" id="L276">        ResponseEntity&lt;Response&lt;User&gt;&gt; getAccount = restTemplate.exchange(</span>
+                &quot;http://ts-user-service:12342/api/v1/userservice/users/id/&quot; + accountId,
+                HttpMethod.GET,
+                requestEntitySendEmail,
+<span class="fc" id="L280">                new ParameterizedTypeReference&lt;Response&lt;User&gt;&gt;() {</span>
+                });
+<span class="fc" id="L282">        Response&lt;User&gt; result = getAccount.getBody();</span>
+<span class="fc" id="L283">        return result.getData();</span>
+    }
+
+    private Response addAssuranceForOrder(int assuranceType, String orderId, HttpHeaders httpHeaders) {
+<span class="fc" id="L287">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Add Assurance For Order]&quot;);</span>
+<span class="fc" id="L288">        HttpEntity requestAddAssuranceResult = new HttpEntity(httpHeaders);</span>
+<span class="fc" id="L289">        ResponseEntity&lt;Response&gt; reAddAssuranceResult = restTemplate.exchange(</span>
+                &quot;http://ts-assurance-service:18888/api/v1/assuranceservice/assurances/&quot; + assuranceType + &quot;/&quot; + orderId,
+                HttpMethod.GET,
+                requestAddAssuranceResult,
+                Response.class);
+
+<span class="fc" id="L295">        return reAddAssuranceResult.getBody();</span>
+    }
+
+    private String queryForStationId(String stationName, HttpHeaders httpHeaders) {
+<span class="fc" id="L299">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Other Service][Get Station Name]&quot;);</span>
+
+
+<span class="fc" id="L302">        HttpEntity requestQueryForStationId = new HttpEntity(httpHeaders);</span>
+<span class="fc" id="L303">        ResponseEntity&lt;Response&lt;String&gt;&gt; reQueryForStationId = restTemplate.exchange(</span>
+                &quot;http://ts-station-service:12345/api/v1/stationservice/stations/id/&quot; + stationName,
+                HttpMethod.GET,
+                requestQueryForStationId,
+<span class="fc" id="L307">                new ParameterizedTypeReference&lt;Response&lt;String&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L310">        return reQueryForStationId.getBody().getData();</span>
+    }
+
+    private Response checkSecurity(String accountId, HttpHeaders httpHeaders) {
+<span class="fc" id="L314">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Other Service][Check Security] Checking....&quot;);</span>
+
+<span class="fc" id="L316">        HttpEntity requestCheckResult = new HttpEntity(httpHeaders);</span>
+<span class="fc" id="L317">        ResponseEntity&lt;Response&gt; reCheckResult = restTemplate.exchange(</span>
+                &quot;http://ts-security-service:11188/api/v1/securityservice/securityConfigs/&quot; + accountId,
+                HttpMethod.GET,
+                requestCheckResult,
+                Response.class);
+
+<span class="fc" id="L323">        return reCheckResult.getBody();</span>
+    }
+
+
+    private Response&lt;TripAllDetail&gt; getTripAllDetailInformation(TripAllDetailInfo gtdi, HttpHeaders httpHeaders) {
+<span class="fc" id="L328">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Other Service][Get Trip All Detail Information] Getting....&quot;);</span>
+
+<span class="fc" id="L330">        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);</span>
+<span class="fc" id="L331">        ResponseEntity&lt;Response&lt;TripAllDetail&gt;&gt; reGetTripAllDetailResult = restTemplate.exchange(</span>
+                &quot;http://ts-travel-service:12346/api/v1/travelservice/trip_detail&quot;,
+                HttpMethod.POST,
+                requestGetTripAllDetailResult,
+<span class="fc" id="L335">                new ParameterizedTypeReference&lt;Response&lt;TripAllDetail&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L338">        return reGetTripAllDetailResult.getBody();</span>
+    }
+
+
+    private Response&lt;Contacts&gt; getContactsById(String contactsId, HttpHeaders httpHeaders) {
+<span class="fc" id="L343">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Other Service][Get Contacts By Id] Getting....&quot;);</span>
+
+<span class="fc" id="L345">        HttpEntity requestGetContactsResult = new HttpEntity(httpHeaders);</span>
+<span class="fc" id="L346">        ResponseEntity&lt;Response&lt;Contacts&gt;&gt; reGetContactsResult = restTemplate.exchange(</span>
+                &quot;http://ts-contacts-service:12347/api/v1/contactservice/contacts/&quot; + contactsId,
+                HttpMethod.GET,
+                requestGetContactsResult,
+<span class="fc" id="L350">                new ParameterizedTypeReference&lt;Response&lt;Contacts&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L353">        return reGetContactsResult.getBody();</span>
+    }
+
+    private Response createOrder(Order coi, HttpHeaders httpHeaders) {
+<span class="fc" id="L357">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Other Service][Get Contacts By Id] Creating....&quot;);</span>
+
+<span class="fc" id="L359">        HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, httpHeaders);</span>
+<span class="fc" id="L360">        ResponseEntity&lt;Response&lt;Order&gt;&gt; reCreateOrderResult = restTemplate.exchange(</span>
+                &quot;http://ts-order-service:12031/api/v1/orderservice/order&quot;,
+                HttpMethod.POST,
+                requestEntityCreateOrderResult,
+<span class="fc" id="L364">                new ParameterizedTypeReference&lt;Response&lt;Order&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L367">        return reCreateOrderResult.getBody();</span>
+    }
+
+    private Response createFoodOrder(FoodOrder afi, HttpHeaders httpHeaders) {
+<span class="fc" id="L371">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Add food Order] Creating....&quot;);</span>
+
+<span class="fc" id="L373">        HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, httpHeaders);</span>
+<span class="fc" id="L374">        ResponseEntity&lt;Response&gt; reAddFoodOrderResult = restTemplate.exchange(</span>
+                &quot;http://ts-food-service:18856/api/v1/foodservice/orders&quot;,
+                HttpMethod.POST,
+                requestEntityAddFoodOrderResult,
+                Response.class);
+
+<span class="fc" id="L380">        return reAddFoodOrderResult.getBody();</span>
+    }
+
+    private Response createConsign(Consign cr, HttpHeaders httpHeaders) {
+<span class="fc" id="L384">        PreserveServiceImpl.LOGGER.info(&quot;[Preserve Service][Add Condign] Creating....&quot;);</span>
+
+<span class="fc" id="L386">        HttpEntity requestEntityResultForTravel = new HttpEntity(cr, httpHeaders);</span>
+<span class="fc" id="L387">        ResponseEntity&lt;Response&gt; reResultForTravel = restTemplate.exchange(</span>
+                &quot;http://ts-consign-service:16111/api/v1/consignservice/consigns&quot;,
+                HttpMethod.POST,
+                requestEntityResultForTravel,
+                Response.class);
+<span class="fc" id="L392">        return reResultForTravel.getBody();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

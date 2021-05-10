@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:44:35.384">
+<file name="/home/rakesh/project/train-ticket/ts-price-service/src/main/java/price/repository/PriceConfigRepository.java">
+<violation beginline="17" endline="17" begincolumn="17" endcolumn="33" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.repository" class="PriceConfigRepository" method="findById" priority="3">
+接口方法【findById】必须使用javadoc注释
+</violation>
+<violation beginline="20" endline="20" begincolumn="17" endcolumn="74" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.repository" class="PriceConfigRepository" method="findByRouteIdAndTrainType" priority="3">
+接口方法【findByRouteIdAndTrainType】必须使用javadoc注释
+</violation>
+<violation beginline="23" endline="23" begincolumn="23" endcolumn="31" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.repository" class="PriceConfigRepository" method="findAll" priority="3">
+接口方法【findAll】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-price-service/src/main/java/price/service/PriceService.java">
+<violation beginline="14" endline="14" begincolumn="14" endcolumn="79" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="createNewPriceConfig" priority="3">
+接口方法【createNewPriceConfig】必须使用javadoc注释
+</violation>
+<violation beginline="16" endline="16" begincolumn="17" endcolumn="56" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="findById" priority="3">
+接口方法【findById】必须使用javadoc注释
+</violation>
+<violation beginline="18" endline="18" begincolumn="14" endcolumn="93" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="findByRouteIdAndTrainType" priority="3">
+接口方法【findByRouteIdAndTrainType】必须使用javadoc注释
+</violation>
+<violation beginline="20" endline="20" begincolumn="14" endcolumn="52" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="findAllPriceConfig" priority="3">
+接口方法【findAllPriceConfig】必须使用javadoc注释
+</violation>
+<violation beginline="22" endline="22" begincolumn="14" endcolumn="66" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="deletePriceConfig" priority="3">
+接口方法【deletePriceConfig】必须使用javadoc注释
+</violation>
+<violation beginline="24" endline="24" begincolumn="14" endcolumn="66" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="price.service" class="PriceService" method="updatePriceConfig" priority="3">
+接口方法【updatePriceConfig】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-price-service/src/main/java/price/service/PriceServiceImpl.java">
+<violation beginline="35" endline="35" begincolumn="116" endcolumn="117" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="price.service" class="PriceServiceImpl" method="createNewPriceConfig" priority="3">
+魔法值【10】
+</violation>
+</file>
+</pmd>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.6.1" timestamp="2021-05-08T18:45:00.276">
+<file name="/home/rakesh/project/train-ticket/ts-rebook-service/src/main/java/rebook/entity/Order.java">
+<violation beginline="107" endline="107" begincolumn="49" endcolumn="49" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="rebook.entity" class="Order" method="setTravelDate" priority="3">
+请不要使用行尾注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-rebook-service/src/main/java/rebook/service/RebookService.java">
+<violation beginline="11" endline="11" begincolumn="14" endcolumn="57" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="rebook.service" class="RebookService" method="rebook" priority="3">
+接口方法【rebook】必须使用javadoc注释
+</violation>
+<violation beginline="12" endline="12" begincolumn="14" endcolumn="65" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="rebook.service" class="RebookService" method="payDifference" priority="3">
+接口方法【payDifference】必须使用javadoc注释
+</violation>
+</file>
+<file name="/home/rakesh/project/train-ticket/ts-rebook-service/src/main/java/rebook/service/RebookServiceImpl.java">
+<violation beginline="29" endline="29" begincolumn="21" endcolumn="68" rule="MethodTooLongRule" ruleset="AlibabaJavaOthers" package="rebook.service" class="RebookServiceImpl" method="rebook" priority="3">
+方法【rebook】的总行数不要超过80行。
+</violation>
+<violation beginline="159" endline="159" begincolumn="24" endcolumn="34" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="rebook.service" class="RebookServiceImpl" method="updateOrder" priority="3">
+请不要使用行尾注释
+</violation>
+<violation beginline="164" endline="164" begincolumn="13" endcolumn="64" rule="AvoidCommentBehindStatementRule" ruleset="AlibabaJavaComments" package="rebook.service" class="RebookServiceImpl" method="updateOrder" priority="3">
+请不要使用行尾注释
+</violation>
+<violation beginline="182" endline="182" begincolumn="13" endcolumn="112" rule="AvoidComplexConditionRule" ruleset="AlibabaJavaFlowControl" package="rebook.service" class="RebookServiceImpl" method="updateOrder" priority="3">
+请不要在条件中使用复杂的表达式。
+</violation>
+<violation beginline="240" endline="240" begincolumn="99" endcolumn="99" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="checkTime" priority="3">
+魔法值【2】
+</violation>
+<violation beginline="242" endline="242" begincolumn="108" endcolumn="108" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="checkTime" priority="3">
+魔法值【2】
+</violation>
+<violation beginline="255" endline="255" begincolumn="57" endcolumn="59" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="getTripAllDetailInformation" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="255" endline="255" begincolumn="31" endcolumn="33" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="getTripAllDetailInformation" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+<violation beginline="275" endline="275" begincolumn="57" endcolumn="59" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="createOrder" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="275" endline="275" begincolumn="31" endcolumn="33" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="createOrder" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+<violation beginline="329" endline="329" begincolumn="83" endcolumn="85" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="getOrderByRebookInfo" priority="3">
+魔法值【&quot;D&quot;】
+</violation>
+<violation beginline="329" endline="329" begincolumn="44" endcolumn="46" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="rebook.service" class="RebookServiceImpl" method="getOrderByRebookInfo" priority="3">
+魔法值【&quot;G&quot;】
+</violation>
+</file>
+</pmd>

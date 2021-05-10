@@ -1,0 +1,26 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl,27,756,3,9,3,146,3,17,0,14
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.service,TravelPlanServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel-plan-service,travelplan.config,SecurityConfig,79,0,0,0,16,0,4,0,4,0
+ts-travel-plan-service,travelplan.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-travel-plan-service,travelplan,TravelPlanApplication,11,0,0,0,4,0,3,0,3,0
+ts-travel-plan-service,travelplan.entity,TransferTravelResult,124,11,22,0,6,3,18,3,7,3
+ts-travel-plan-service,travelplan.entity,RoutePlanInfo,191,19,32,0,10,3,25,5,9,5
+ts-travel-plan-service,travelplan.entity,TransferTravelInfo,237,36,46,0,1,14,32,7,9,7
+ts-travel-plan-service,travelplan.entity,SeatClass,33,126,4,0,6,15,4,3,2,3
+ts-travel-plan-service,travelplan.entity,Seat,168,70,40,0,0,8,23,12,3,12
+ts-travel-plan-service,travelplan.entity,TripId,155,0,28,0,21,0,26,0,10,0
+ts-travel-plan-service,travelplan.entity,TripInfo,145,36,30,0,0,7,19,8,4,8
+ts-travel-plan-service,travelplan.entity,TrainTypeEnum,114,0,4,0,20,0,9,0,7,0
+ts-travel-plan-service,travelplan.entity,RoutePlanResultUnit,400,57,78,0,3,10,53,10,14,10
+ts-travel-plan-service,travelplan.entity,Trip,420,0,70,0,25,0,58,0,23,0
+ts-travel-plan-service,travelplan.entity,TripResponse,436,0,74,0,13,0,62,0,25,0
+ts-travel-plan-service,travelplan.entity,TravelAdvanceResultUnit,432,47,82,0,11,3,56,12,15,12
+ts-travel-plan-service,travelplan.controller,TravelPlanController,0,49,0,0,0,11,0,7,0,7

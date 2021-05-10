@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InitData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-food-map-service</a> &gt; <a href="index.source.html" class="el_package">food.init</a> &gt; <span class="el_source">InitData.java</span></div><h1>InitData.java</h1><pre class="source lang-java linenums">package food.init;
+
+import food.entity.Food;
+import food.entity.FoodStore;
+import food.entity.TrainFood;
+import food.service.FoodMapService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Component
+<span class="nc" id="L20">public class InitData implements CommandLineRunner{</span>
+
+    @Autowired
+    FoodMapService service;
+
+<span class="nc" id="L25">    private static final Logger LOGGER = LoggerFactory.getLogger(InitData.class);</span>
+
+
+    @Override
+    public void run(String... args) throws Exception {
+
+<span class="nc" id="L31">        BufferedReader br1 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(&quot;/foodstores.txt&quot;)));</span>
+        try{
+<span class="nc" id="L33">            String line = br1.readLine();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            while( line != null ){</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">                if( !line.trim().equals(&quot;&quot;) ){</span>
+<span class="nc" id="L36">                    FoodStore fs = new FoodStore();</span>
+<span class="nc" id="L37">                    fs.setId(UUID.randomUUID());</span>
+<span class="nc" id="L38">                    String[] lineTemp = line.trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L39">                    fs.setStationId(lineTemp[1]);</span>
+
+<span class="nc" id="L41">                    lineTemp = br1.readLine().trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L42">                    fs.setStoreName(lineTemp[1]);</span>
+
+<span class="nc" id="L44">                    lineTemp = br1.readLine().trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L45">                    fs.setTelephone(lineTemp[1]);</span>
+
+<span class="nc" id="L47">                    lineTemp = br1.readLine().trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L48">                    fs.setBusinessTime(lineTemp[1]);</span>
+
+<span class="nc" id="L50">                    lineTemp = br1.readLine().trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L51">                    fs.setDeliveryFee( Double.parseDouble(lineTemp[1]) );</span>
+
+<span class="nc" id="L53">                    lineTemp = br1.readLine().trim().split(&quot;=&quot;);</span>
+
+<span class="nc" id="L55">                    fs.setFoodList(toFoodList(lineTemp[1]));</span>
+<span class="nc" id="L56">                    service.createFoodStore(fs,null);</span>
+                }
+<span class="nc" id="L58">                line = br1.readLine();</span>
+            }
+
+<span class="nc" id="L61">        } catch(Exception e){</span>
+<span class="nc" id="L62">            InitData.LOGGER.info(&quot;the foodstores.txt has format error!&quot;);</span>
+<span class="nc" id="L63">            InitData.LOGGER.error(e.getMessage());</span>
+<span class="nc" id="L64">            System.exit(1);</span>
+<span class="nc" id="L65">        }</span>
+
+<span class="nc" id="L67">        BufferedReader br2 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(&quot;/trainfood.txt&quot;)));</span>
+        try{
+<span class="nc" id="L69">            String line2 = br2.readLine();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">            while( line2 != null ){</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if( !line2.trim().equals(&quot;&quot;) ){</span>
+<span class="nc" id="L72">                    TrainFood tf = new TrainFood();</span>
+<span class="nc" id="L73">                    tf.setId(UUID.randomUUID());</span>
+<span class="nc" id="L74">                    String[] lineTemp = line2.trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L75">                    tf.setTripId(lineTemp[1]);</span>
+<span class="nc" id="L76">                    lineTemp = br2.readLine().trim().split(&quot;=&quot;);</span>
+<span class="nc" id="L77">                    tf.setFoodList(toFoodList(lineTemp[1]));</span>
+<span class="nc" id="L78">                    service.createTrainFood(tf,null);</span>
+                }
+<span class="nc" id="L80">                line2 = br2.readLine();</span>
+            }
+
+<span class="nc" id="L83">        } catch(Exception e){</span>
+<span class="nc" id="L84">            InitData.LOGGER.info(&quot;the trainfood.txt has format error!&quot;);</span>
+<span class="nc" id="L85">            InitData.LOGGER.error(e.getMessage());</span>
+<span class="nc" id="L86">            System.exit(1);</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+
+    private List&lt;Food&gt; toFoodList(String s){
+<span class="nc" id="L91">        InitData.LOGGER.info(&quot;s= {}&quot;, s);</span>
+<span class="nc" id="L92">        String[] foodstring = s.split(&quot;_&quot;);</span>
+<span class="nc" id="L93">        List&lt;Food&gt; foodList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        for(int i = 0; i&lt; foodstring.length; i++){</span>
+<span class="nc" id="L95">            String[] foodTemp = foodstring[i].split(&quot;,&quot;);</span>
+<span class="nc" id="L96">            Food food = new Food();</span>
+<span class="nc" id="L97">            food.setFoodName(foodTemp[0]);</span>
+
+<span class="nc" id="L99">            food.setPrice(Double.parseDouble(foodTemp[1]));</span>
+
+<span class="nc" id="L101">            foodList.add(food);</span>
+        }
+<span class="nc" id="L103">        return foodList;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TravelPlanServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ts-travel-plan-service</a> &gt; <a href="index.source.html" class="el_package">travelplan.service</a> &gt; <span class="el_source">TravelPlanServiceImpl.java</span></div><h1>TravelPlanServiceImpl.java</h1><pre class="source lang-java linenums">package travelplan.service;
+
+import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import travelplan.entity.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author fdse
+ */
+@Service
+<span class="fc" id="L24">public class TravelPlanServiceImpl implements TravelPlanService {</span>
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+<span class="fc" id="L29">    private static final Logger LOGGER = LoggerFactory.getLogger(TravelPlanServiceImpl.class);</span>
+
+<span class="fc" id="L31">    String success = &quot;Success&quot;;</span>
+<span class="fc" id="L32">    String cannotFind = &quot;Cannot Find&quot;;</span>
+
+    @Override
+    public Response getTransferSearch(TransferTravelInfo info, HttpHeaders headers) {
+
+<span class="fc" id="L37">        TripInfo queryInfoFirstSection = new TripInfo();</span>
+<span class="fc" id="L38">        queryInfoFirstSection.setDepartureTime(info.getTravelDate());</span>
+<span class="fc" id="L39">        queryInfoFirstSection.setStartingPlace(info.getFromStationName());</span>
+<span class="fc" id="L40">        queryInfoFirstSection.setEndPlace(info.getViaStationName());</span>
+
+        List&lt;TripResponse&gt; firstSectionFromHighSpeed;
+        List&lt;TripResponse&gt; firstSectionFromNormal;
+<span class="fc" id="L44">        firstSectionFromHighSpeed = tripsFromHighSpeed(queryInfoFirstSection, headers);</span>
+<span class="fc" id="L45">        firstSectionFromNormal = tripsFromNormal(queryInfoFirstSection, headers);</span>
+
+<span class="fc" id="L47">        TripInfo queryInfoSecondSectoin = new TripInfo();</span>
+<span class="fc" id="L48">        queryInfoSecondSectoin.setDepartureTime(info.getTravelDate());</span>
+<span class="fc" id="L49">        queryInfoSecondSectoin.setStartingPlace(info.getViaStationName());</span>
+<span class="fc" id="L50">        queryInfoSecondSectoin.setEndPlace(info.getToStationName());</span>
+
+        List&lt;TripResponse&gt; secondSectionFromHighSpeed;
+        List&lt;TripResponse&gt; secondSectionFromNormal;
+<span class="fc" id="L54">        secondSectionFromHighSpeed = tripsFromHighSpeed(queryInfoSecondSectoin, headers);</span>
+<span class="fc" id="L55">        secondSectionFromNormal = tripsFromNormal(queryInfoSecondSectoin, headers);</span>
+
+<span class="fc" id="L57">        List&lt;TripResponse&gt; firstSection = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L58">        firstSection.addAll(firstSectionFromHighSpeed);</span>
+<span class="fc" id="L59">        firstSection.addAll(firstSectionFromNormal);</span>
+
+<span class="fc" id="L61">        List&lt;TripResponse&gt; secondSection = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L62">        secondSection.addAll(secondSectionFromHighSpeed);</span>
+<span class="fc" id="L63">        secondSection.addAll(secondSectionFromNormal);</span>
+
+<span class="fc" id="L65">        TransferTravelResult result = new TransferTravelResult();</span>
+<span class="fc" id="L66">        result.setFirstSectionResult(firstSection);</span>
+<span class="fc" id="L67">        result.setSecondSectionResult(secondSection);</span>
+
+<span class="fc" id="L69">        return new Response&lt;&gt;(1, &quot;Success.&quot;, result);</span>
+    }
+
+    @Override
+    public Response getCheapest(TripInfo info, HttpHeaders headers) {
+<span class="fc" id="L74">        RoutePlanInfo routePlanInfo = new RoutePlanInfo();</span>
+<span class="fc" id="L75">        routePlanInfo.setNum(5);</span>
+<span class="fc" id="L76">        routePlanInfo.setFormStationName(info.getStartingPlace());</span>
+<span class="fc" id="L77">        routePlanInfo.setToStationName(info.getEndPlace());</span>
+<span class="fc" id="L78">        routePlanInfo.setTravelDate(info.getDepartureTime());</span>
+<span class="fc" id="L79">        ArrayList&lt;RoutePlanResultUnit&gt; routePlanResultUnits = getRoutePlanResultCheapest(routePlanInfo, headers);</span>
+
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (!routePlanResultUnits.isEmpty()) {</span>
+<span class="fc" id="L82">            ArrayList&lt;TravelAdvanceResultUnit&gt; lists = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            for (int i = 0; i &lt; routePlanResultUnits.size(); i++) {</span>
+<span class="fc" id="L84">                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);</span>
+<span class="fc" id="L85">                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();</span>
+<span class="fc" id="L86">                newUnit.setTripId(tempUnit.getTripId());</span>
+<span class="fc" id="L87">                newUnit.setToStationName(tempUnit.getToStationName());</span>
+<span class="fc" id="L88">                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());</span>
+<span class="fc" id="L89">                newUnit.setFromStationName(tempUnit.getFromStationName());</span>
+
+<span class="fc" id="L91">                List&lt;String&gt; stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);</span>
+<span class="fc" id="L92">                newUnit.setStopStations(stops);</span>
+<span class="fc" id="L93">                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());</span>
+<span class="fc" id="L94">                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());</span>
+<span class="fc" id="L95">                newUnit.setStartingTime(tempUnit.getStartingTime());</span>
+<span class="fc" id="L96">                newUnit.setEndTime(tempUnit.getEndTime());</span>
+<span class="fc" id="L97">                int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L98">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);</span>
+
+<span class="fc" id="L100">                int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L101">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);</span>
+<span class="fc" id="L102">                newUnit.setNumberOfRestTicketFirstClass(first);</span>
+<span class="fc" id="L103">                newUnit.setNumberOfRestTicketSecondClass(second);</span>
+<span class="fc" id="L104">                lists.add(newUnit);</span>
+            }
+
+<span class="fc" id="L107">            return new Response&lt;&gt;(1, success, lists);</span>
+        } else {
+<span class="nc" id="L109">            return new Response&lt;&gt;(0, cannotFind, null);</span>
+        }
+    }
+
+    @Override
+    public Response getQuickest(TripInfo info, HttpHeaders headers) {
+<span class="fc" id="L115">        RoutePlanInfo routePlanInfo = new RoutePlanInfo();</span>
+<span class="fc" id="L116">        routePlanInfo.setNum(5);</span>
+<span class="fc" id="L117">        routePlanInfo.setFormStationName(info.getStartingPlace());</span>
+<span class="fc" id="L118">        routePlanInfo.setToStationName(info.getEndPlace());</span>
+<span class="fc" id="L119">        routePlanInfo.setTravelDate(info.getDepartureTime());</span>
+<span class="fc" id="L120">        ArrayList&lt;RoutePlanResultUnit&gt; routePlanResultUnits = getRoutePlanResultQuickest(routePlanInfo, headers);</span>
+
+
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        if (!routePlanResultUnits.isEmpty()) {</span>
+
+<span class="fc" id="L125">            ArrayList&lt;TravelAdvanceResultUnit&gt; lists = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            for (int i = 0; i &lt; routePlanResultUnits.size(); i++) {</span>
+<span class="fc" id="L127">                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);</span>
+<span class="fc" id="L128">                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();</span>
+<span class="fc" id="L129">                newUnit.setTripId(tempUnit.getTripId());</span>
+<span class="fc" id="L130">                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());</span>
+<span class="fc" id="L131">                newUnit.setToStationName(tempUnit.getToStationName());</span>
+<span class="fc" id="L132">                newUnit.setFromStationName(tempUnit.getFromStationName());</span>
+
+<span class="fc" id="L134">                List&lt;String&gt; stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);</span>
+<span class="fc" id="L135">                newUnit.setStopStations(stops);</span>
+
+<span class="fc" id="L137">                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());</span>
+<span class="fc" id="L138">                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());</span>
+<span class="fc" id="L139">                newUnit.setStartingTime(tempUnit.getStartingTime());</span>
+<span class="fc" id="L140">                newUnit.setEndTime(tempUnit.getEndTime());</span>
+<span class="fc" id="L141">                int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L142">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);</span>
+
+<span class="fc" id="L144">                int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L145">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);</span>
+<span class="fc" id="L146">                newUnit.setNumberOfRestTicketFirstClass(first);</span>
+<span class="fc" id="L147">                newUnit.setNumberOfRestTicketSecondClass(second);</span>
+<span class="fc" id="L148">                lists.add(newUnit);</span>
+            }
+<span class="fc" id="L150">            return new Response&lt;&gt;(1, success, lists);</span>
+        } else {
+<span class="nc" id="L152">            return new Response&lt;&gt;(0, cannotFind, null);</span>
+        }
+    }
+
+    @Override
+    public Response getMinStation(TripInfo info, HttpHeaders headers) {
+<span class="fc" id="L158">        RoutePlanInfo routePlanInfo = new RoutePlanInfo();</span>
+<span class="fc" id="L159">        routePlanInfo.setNum(5);</span>
+<span class="fc" id="L160">        routePlanInfo.setFormStationName(info.getStartingPlace());</span>
+<span class="fc" id="L161">        routePlanInfo.setToStationName(info.getEndPlace());</span>
+<span class="fc" id="L162">        routePlanInfo.setTravelDate(info.getDepartureTime());</span>
+<span class="fc" id="L163">        ArrayList&lt;RoutePlanResultUnit&gt; routePlanResultUnits = getRoutePlanResultMinStation(routePlanInfo, headers);</span>
+
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">        if (!routePlanResultUnits.isEmpty()) {</span>
+
+<span class="fc" id="L167">            ArrayList&lt;TravelAdvanceResultUnit&gt; lists = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">            for (int i = 0; i &lt; routePlanResultUnits.size(); i++) {</span>
+<span class="fc" id="L169">                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);</span>
+<span class="fc" id="L170">                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();</span>
+<span class="fc" id="L171">                newUnit.setTripId(tempUnit.getTripId());</span>
+<span class="fc" id="L172">                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());</span>
+<span class="fc" id="L173">                newUnit.setFromStationName(tempUnit.getFromStationName());</span>
+<span class="fc" id="L174">                newUnit.setToStationName(tempUnit.getToStationName());</span>
+
+<span class="fc" id="L176">                List&lt;String&gt; stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);</span>
+<span class="fc" id="L177">                newUnit.setStopStations(stops);</span>
+
+<span class="fc" id="L179">                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());</span>
+<span class="fc" id="L180">                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());</span>
+<span class="fc" id="L181">                newUnit.setEndTime(tempUnit.getEndTime());</span>
+<span class="fc" id="L182">                newUnit.setStartingTime(tempUnit.getStartingTime());</span>
+
+<span class="fc" id="L184">                int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L185">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);</span>
+
+<span class="fc" id="L187">                int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),</span>
+<span class="fc" id="L188">                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);</span>
+<span class="fc" id="L189">                newUnit.setNumberOfRestTicketFirstClass(first);</span>
+<span class="fc" id="L190">                newUnit.setNumberOfRestTicketSecondClass(second);</span>
+<span class="fc" id="L191">                lists.add(newUnit);</span>
+            }
+<span class="fc" id="L193">            return new Response&lt;&gt;(1, success, lists);</span>
+        } else {
+<span class="nc" id="L195">            return new Response&lt;&gt;(0, cannotFind, null);</span>
+        }
+    }
+
+    private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType, HttpHeaders headers) {
+<span class="fc" id="L200">        Seat seatRequest = new Seat();</span>
+
+<span class="fc" id="L202">        String fromId = queryForStationId(startStationName, headers);</span>
+<span class="fc" id="L203">        String toId = queryForStationId(endStationName, headers);</span>
+
+<span class="fc" id="L205">        seatRequest.setDestStation(toId);</span>
+<span class="fc" id="L206">        seatRequest.setStartStation(fromId);</span>
+<span class="fc" id="L207">        seatRequest.setTrainNumber(trainNumber);</span>
+<span class="fc" id="L208">        seatRequest.setTravelDate(travelDate);</span>
+<span class="fc" id="L209">        seatRequest.setSeatType(seatType);</span>
+
+<span class="fc" id="L211">        TravelPlanServiceImpl.LOGGER.info(&quot;Seat Request is: {}&quot;, seatRequest.toString());</span>
+<span class="fc" id="L212">        HttpEntity requestEntity = new HttpEntity(seatRequest, headers);</span>
+<span class="fc" id="L213">        ResponseEntity&lt;Response&lt;Integer&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-seat-service:18898/api/v1/seatservice/seats/left_tickets&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L217">                new ParameterizedTypeReference&lt;Response&lt;Integer&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L220">        return re.getBody().getData();</span>
+    }
+
+    private ArrayList&lt;RoutePlanResultUnit&gt; getRoutePlanResultCheapest(RoutePlanInfo info, HttpHeaders headers) {
+<span class="fc" id="L224">        HttpEntity requestEntity = new HttpEntity(info, headers);</span>
+<span class="fc" id="L225">        ResponseEntity&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/cheapestRoute&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L229">                new ParameterizedTypeReference&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt;() {</span>
+                });
+<span class="fc" id="L231">        return re.getBody().getData();</span>
+    }
+
+    private ArrayList&lt;RoutePlanResultUnit&gt; getRoutePlanResultQuickest(RoutePlanInfo info, HttpHeaders headers) {
+<span class="fc" id="L235">        HttpEntity requestEntity = new HttpEntity(info, headers);</span>
+<span class="fc" id="L236">        ResponseEntity&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/quickestRoute&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L240">                new ParameterizedTypeReference&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L243">        return re.getBody().getData();</span>
+    }
+
+    private ArrayList&lt;RoutePlanResultUnit&gt; getRoutePlanResultMinStation(RoutePlanInfo info, HttpHeaders headers) {
+<span class="fc" id="L247">        HttpEntity requestEntity = new HttpEntity(info, headers);</span>
+<span class="fc" id="L248">        ResponseEntity&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/minStopStations&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L252">                new ParameterizedTypeReference&lt;Response&lt;ArrayList&lt;RoutePlanResultUnit&gt;&gt;&gt;() {</span>
+                });
+<span class="fc" id="L254">        return re.getBody().getData();</span>
+    }
+
+    private List&lt;TripResponse&gt; tripsFromHighSpeed(TripInfo info, HttpHeaders headers) {
+<span class="fc" id="L258">        HttpEntity requestEntity = new HttpEntity(info, headers);</span>
+<span class="fc" id="L259">        ResponseEntity&lt;Response&lt;List&lt;TripResponse&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-travel-service:12346/api/v1/travelservice/trips/left&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L263">                new ParameterizedTypeReference&lt;Response&lt;List&lt;TripResponse&gt;&gt;&gt;() {</span>
+                });
+<span class="fc" id="L265">        return re.getBody().getData();</span>
+    }
+
+    private ArrayList&lt;TripResponse&gt; tripsFromNormal(TripInfo info, HttpHeaders headers) {
+
+<span class="fc" id="L270">        HttpEntity requestEntity = new HttpEntity(info, headers);</span>
+<span class="fc" id="L271">        ResponseEntity&lt;Response&lt;ArrayList&lt;TripResponse&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-travel2-service:16346/api/v1/travel2service/trips/left&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L275">                new ParameterizedTypeReference&lt;Response&lt;ArrayList&lt;TripResponse&gt;&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L278">        return re.getBody().getData();</span>
+    }
+
+    private String queryForStationId(String stationName, HttpHeaders headers) {
+
+<span class="fc" id="L283">        HttpEntity requestEntity = new HttpEntity(headers);</span>
+<span class="fc" id="L284">        ResponseEntity&lt;Response&lt;String&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo/&quot; + stationName,
+                HttpMethod.GET,
+                requestEntity,
+<span class="fc" id="L288">                new ParameterizedTypeReference&lt;Response&lt;String&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L291">        return re.getBody().getData();</span>
+    }
+
+    private List&lt;String&gt; transferStationIdToStationName(ArrayList&lt;String&gt; stations, HttpHeaders headers) {
+<span class="fc" id="L295">        HttpEntity requestEntity = new HttpEntity(stations, headers);</span>
+<span class="fc" id="L296">        ResponseEntity&lt;Response&lt;List&lt;String&gt;&gt;&gt; re = restTemplate.exchange(</span>
+                &quot;http://ts-station-service:12345/api/v1/stationservice/stations/namelist&quot;,
+                HttpMethod.POST,
+                requestEntity,
+<span class="fc" id="L300">                new ParameterizedTypeReference&lt;Response&lt;List&lt;String&gt;&gt;&gt;() {</span>
+                });
+
+<span class="fc" id="L303">        return re.getBody().getData();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

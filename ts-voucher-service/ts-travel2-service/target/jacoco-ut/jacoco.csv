@@ -1,0 +1,28 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-travel2-service,travel2.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-travel2-service,travel2.config,SecurityConfig,139,0,0,0,21,0,4,0,4,0
+ts-travel2-service,travel2.init,InitData,218,0,0,0,52,0,2,0,2,0
+ts-travel2-service,travel2,Travel2Application,11,0,0,0,4,0,3,0,3,0
+ts-travel2-service,travel2.entity,Type,36,54,4,0,9,9,6,3,4,3
+ts-travel2-service,travel2.entity,SoldTicket,387,0,40,0,23,0,47,0,27,0
+ts-travel2-service,travel2.entity,Seat,255,0,40,0,13,0,35,0,15,0
+ts-travel2-service,travel2.entity,TripAllDetailInfo,154,58,38,0,0,8,22,10,3,10
+ts-travel2-service,travel2.entity,AdminTrip,154,15,30,0,3,3,22,4,7,4
+ts-travel2-service,travel2.entity,SeatClass,159,0,4,0,21,0,7,0,5,0
+ts-travel2-service,travel2.entity,TravelResult,191,0,28,0,7,0,27,0,13,0
+ts-travel2-service,travel2.entity,TripAllDetail,188,11,34,0,4,3,27,3,10,3
+ts-travel2-service,travel2.entity,Route,217,38,46,0,0,8,27,11,4,11
+ts-travel2-service,travel2.entity,TripId,113,34,23,3,7,10,20,4,8,2
+ts-travel2-service,travel2.entity,TravelInfo,353,31,70,0,0,11,46,10,11,10
+ts-travel2-service,travel2.entity,TrainType,180,8,19,1,15,3,23,2,13,2
+ts-travel2-service,travel2.entity,Trip,394,61,69,1,15,19,52,6,17,6
+ts-travel2-service,travel2.entity,TripInfo,145,47,30,0,0,10,19,8,4,8
+ts-travel2-service,travel2.entity,Travel,212,0,38,0,7,0,32,0,13,0
+ts-travel2-service,travel2.entity,TripResponse,467,0,74,0,22,0,62,0,25,0
+ts-travel2-service,travel2.service,Travel2ServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel2-service,travel2.service,Travel2ServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-travel2-service,travel2.service,Travel2ServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-travel2-service,travel2.service,Travel2ServiceImpl,481,740,28,36,88,122,23,28,1,18
+ts-travel2-service,travel2.service,Travel2ServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-travel2-service,travel2.service,Travel2ServiceImpl.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+ts-travel2-service,travel2.controller,Travel2Controller,0,121,4,6,0,22,4,15,0,14

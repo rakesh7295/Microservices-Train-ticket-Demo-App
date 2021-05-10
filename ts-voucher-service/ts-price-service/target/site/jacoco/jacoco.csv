@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-price-service,price.service,PriceServiceImpl,0,273,2,14,0,58,2,14,0,8
+ts-price-service,price.entity,TrainType,188,0,20,0,18,0,25,0,15,0
+ts-price-service,price.entity,PriceConfig,127,130,16,18,0,9,15,18,2,14
+ts-price-service,price.init,InitData,237,0,0,0,64,0,2,0,2,0
+ts-price-service,price,PriceApplication,11,0,0,0,4,0,3,0,3,0
+ts-price-service,price.config,SecurityConfig,139,0,0,0,21,0,4,0,4,0
+ts-price-service,price.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-price-service,price.controller,PriceController,0,43,0,0,0,7,0,7,0,7

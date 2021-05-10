@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ts-execute-service,execute.entity,Order,332,48,38,0,43,14,53,3,34,3
+ts-execute-service,execute.entity,OrderStatus,33,102,4,0,6,13,4,3,2,3
+ts-execute-service,execute.entity,SeatClass,33,126,4,0,6,15,4,3,2,3
+ts-execute-service,execute.controller,ExecuteControlller,0,31,0,0,0,7,0,5,0,5
+ts-execute-service,execute.serivce,ExecuteServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-execute-service,execute.serivce,ExecuteServiceImpl,98,296,14,14,10,47,12,10,0,8
+ts-execute-service,execute.serivce,ExecuteServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
+ts-execute-service,execute,ExecuteApplication,11,0,0,0,4,0,3,0,3,0
+ts-execute-service,execute.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
+ts-execute-service,execute.config,SecurityConfig,89,0,0,0,16,0,4,0,4,0
