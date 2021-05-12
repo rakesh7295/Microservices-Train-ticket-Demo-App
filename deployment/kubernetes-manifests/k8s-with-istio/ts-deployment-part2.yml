@@ -1725,7 +1725,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-travel-service
-  namespace: train-appnamespace: train-app
+  namespace: train-app
 spec:
   ports:
     - name: http
