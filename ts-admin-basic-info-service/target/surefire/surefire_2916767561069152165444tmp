@@ -1,6 +1,0 @@
-#surefire_29
-#Sat May 08 18:45:45 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-admin-basic-info-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-admin-basic-info-service
-localRepository=/home/rakesh/.m2/repository

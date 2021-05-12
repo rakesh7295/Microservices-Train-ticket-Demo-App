@@ -1,9 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-ts-admin-route-service,adminroute.controller,AdminRouteController,0,25,0,0,0,5,0,5,0,5
-ts-admin-route-service,adminroute.entity,RouteInfo,277,21,54,0,1,7,37,7,10,7
-ts-admin-route-service,adminroute.entity,Route,255,0,46,0,7,0,38,0,15,0
-ts-admin-route-service,adminroute,AdminRouteApplication,11,0,0,0,4,0,3,0,3,0
-ts-admin-route-service,adminroute.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
-ts-admin-route-service,adminroute.config,SecurityConfig,80,0,0,0,16,0,4,0,4,0
-ts-admin-route-service,adminroute.service,AdminRouteServiceImpl.new ParameterizedTypeReference() {...},0,6,0,0,0,1,0,1,0,1
-ts-admin-route-service,adminroute.service,AdminRouteServiceImpl,0,71,0,0,0,10,0,4,0,4

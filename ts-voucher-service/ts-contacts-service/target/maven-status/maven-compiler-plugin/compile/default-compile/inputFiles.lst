@@ -1,9 +1,0 @@
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/entity/Contacts.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/service/ContactsService.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/config/SecurityConfig.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/init/InitData.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/entity/DocumentType.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/repository/ContactsRepository.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/ContactsApplication.java
-/home/rakesh/project/train-ticket/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java

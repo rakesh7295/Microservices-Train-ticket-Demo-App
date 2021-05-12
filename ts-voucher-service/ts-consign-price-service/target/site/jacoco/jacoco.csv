@@ -1,8 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-ts-consign-price-service,consignprice,ConsignPriceApplication,21,0,0,0,6,0,4,0,4,0
-ts-consign-price-service,consignprice.init,InitData,39,0,0,0,12,0,3,0,3,0
-ts-consign-price-service,consignprice.controller,ConsignPriceController,0,34,0,0,0,7,0,6,0,6
-ts-consign-price-service,consignprice.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
-ts-consign-price-service,consignprice.config,SecurityConfig,89,0,0,0,16,0,4,0,4,0
-ts-consign-price-service,consignprice.entity,ConsignPrice,143,127,13,11,0,10,13,17,2,16
-ts-consign-price-service,consignprice.service,ConsignPriceServiceImpl,0,186,0,6,0,38,0,9,0,6

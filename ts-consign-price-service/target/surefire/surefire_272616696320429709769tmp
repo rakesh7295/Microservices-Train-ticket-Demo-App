@@ -1,6 +1,0 @@
-#surefire_27
-#Sat May 08 18:45:38 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-consign-price-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-consign-price-service
-localRepository=/home/rakesh/.m2/repository

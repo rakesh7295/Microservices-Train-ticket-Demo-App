@@ -1,8 +1,0 @@
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/entity/TrainType.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/service/TrainServiceImpl.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/controller/TrainController.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/TrainApplication.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/init/InitData.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/repository/TrainTypeRepository.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/config/SecurityConfig.java
-/home/rakesh/project/train-ticket/ts-train-service/src/main/java/train/service/TrainService.java

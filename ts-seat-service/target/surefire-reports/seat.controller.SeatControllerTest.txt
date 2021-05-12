@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: seat.controller.SeatControllerTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.702 sec - in seat.controller.SeatControllerTest

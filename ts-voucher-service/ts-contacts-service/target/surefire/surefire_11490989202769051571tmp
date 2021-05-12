@@ -1,6 +1,0 @@
-#surefire_1
-#Mon May 10 13:48:44 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-contacts-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-contacts-service
-localRepository=/home/rakesh/.m2/repository

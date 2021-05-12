@@ -1,6 +1,0 @@
-#surefire_18
-#Sat May 08 18:45:01 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-cancel-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-cancel-service
-localRepository=/home/rakesh/.m2/repository

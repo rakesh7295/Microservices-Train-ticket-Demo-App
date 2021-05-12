@@ -1,9 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-ts-contacts-service,contacts.service,ContactsServiceImpl,0,280,1,13,0,55,1,15,0,9
-ts-contacts-service,contacts.config,SecurityConfig.new WebMvcConfigurerAdapter() {...},36,0,0,0,8,0,2,0,2,0
-ts-contacts-service,contacts.config,SecurityConfig,89,0,0,0,16,0,4,0,4,0
-ts-contacts-service,contacts.controller,ContactsController,0,97,0,0,0,19,0,10,0,10
-ts-contacts-service,contacts.init,InitData,66,0,0,0,18,0,2,0,2,0
-ts-contacts-service,contacts.entity,Contacts,22,150,9,9,5,20,9,17,1,16
-ts-contacts-service,contacts.entity,DocumentType,99,0,4,0,16,0,7,0,5,0
-ts-contacts-service,contacts,ContactsApplication,11,0,0,0,4,0,3,0,3,0

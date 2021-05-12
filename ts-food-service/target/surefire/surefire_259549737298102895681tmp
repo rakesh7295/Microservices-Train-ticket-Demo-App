@@ -1,6 +1,0 @@
-#surefire_25
-#Sat May 08 18:45:30 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-food-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-food-service
-localRepository=/home/rakesh/.m2/repository

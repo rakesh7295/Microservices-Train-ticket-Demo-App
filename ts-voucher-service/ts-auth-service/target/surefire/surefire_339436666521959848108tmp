@@ -1,6 +1,0 @@
-#surefire_33
-#Sat May 08 18:46:02 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-auth-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-auth-service
-localRepository=/home/rakesh/.m2/repository

@@ -1,6 +1,0 @@
-#surefire_22
-#Sat May 08 18:45:17 IST 2021
-basedir=/home/rakesh/project/train-ticket/ts-travel-plan-service
-pmd.failOnViolation=false
-user.dir=/home/rakesh/project/train-ticket/ts-travel-plan-service
-localRepository=/home/rakesh/.m2/repository
