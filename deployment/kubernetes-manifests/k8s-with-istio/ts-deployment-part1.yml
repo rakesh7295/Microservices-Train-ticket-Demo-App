@@ -532,7 +532,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017
   selector:
    app: ts-user-mongo 
 
@@ -544,7 +545,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017
   selector:
    app: ts-auth-mongo
 ---
@@ -556,7 +558,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-route-mongo
 
@@ -569,7 +572,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-contacts-mongo
 
@@ -582,7 +586,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-order-mongo
 
@@ -595,7 +600,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-order-other-mongo
 
@@ -608,7 +614,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-config-mongo
 
@@ -621,7 +628,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-station-mongo
 
@@ -634,7 +642,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-train-mongo
 
@@ -647,7 +656,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-travel-mongo
 
@@ -660,7 +670,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-travel2-mongo
 
@@ -673,7 +684,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-price-mongo
 
@@ -686,7 +698,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-security-mongo
 
@@ -699,7 +712,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-inside-payment-mongo
 
@@ -712,7 +726,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-payment-mongo
 
@@ -725,7 +740,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-assurance-mongo
 
@@ -738,7 +754,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-ticket-office-mongo
 
@@ -751,7 +768,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 3306
+    - name: http
+      port: 3306  
   selector:
    app: ts-voucher-mysql
 
@@ -764,7 +782,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017  
   selector:
    app: ts-food-map-mongo
 
@@ -777,7 +796,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-consign-mongo
 
@@ -790,7 +810,8 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-consign-price-mongo
 
@@ -803,6 +824,7 @@ metadata:
   namespace: train-app
 spec:
   ports:
-    - port: 27017
+    - name: http
+      port: 27017    
   selector:
    app: ts-food-mongo
