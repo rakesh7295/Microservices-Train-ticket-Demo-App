@@ -22,16 +22,16 @@ pipeline {
                     if(params.ENVIRONMENT == 'PROD'){
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-hfvb8"
                         env.BUILD_TYPE = 'train_app_prod'
-                        env.REGISTRY_HOST = "${env.REGISTRY_URL}/${BUILD_TYPE}"
+                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
 
                     } else if(params.ENVIRONMENT == 'DEV'){
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-gl6rx"
                         env.BUILD_TYPE = 'train_app_dev'
-                        env.REGISTRY_HOST = "${env.REGISTRY_URL}/${BUILD_TYPE}"
+                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
                     } else {
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-d7sbh"
                         env.BUILD_TYPE = 'train_app_qa'
-                        env.REGISTRY_HOST = "${env.REGISTRY_URL}/${BUILD_TYPE}"
+                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
                     }
 
                 }else {
@@ -45,7 +45,7 @@ pipeline {
                     if(params.ENVIRONMENT == 'PROD'){
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-v8dj4"
                         env.BUILD_TYPE = 'train_app_prod'
-                        env.REGISTRY_HOST = "${env.REGISTRY_URL}/${BUILD_TYPE}"
+                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
                     }else {
                         error 'For DR only PROD Environment can be selected.'
                     }
@@ -93,19 +93,14 @@ pipeline {
         }
         stage('Deploy to Kubernetes'){
             steps{
-                sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${BUILD_NUMBER} ${BUILD_NUMBER} ${BUILD_TYPE} ${namespace}"
                 script{
-                    withKubeConfig([credentialsId: 'jenkins-user-in-rancher', serverUrl: "env.KUBERNETESserver"]){
+                    withKubeConfig([credentialsId: 'rancher-api-login', serverUrl: "env.KUBERNETESserver"]){
                         try{
-                            //sh "chmod +x changeTag.sh"
-                            //sh "./changeTag.sh ${BUILD_NUMBER} ${BUILD_NUMBER} ${BUILD_TYPE} ${namespace}"
-                            //sh "kubectl apply -n test -f deployments5.yml"
-                            //sh "kubectl apply -f deployments5.yml"
-
-
                             sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
-                            sh "kubectl apply -f ts-deployment-part6.yml"
+                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
+                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
+                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
+                            sh "cat ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
                         }catch(ex){
                             // sh "kubectl create -f deployments5.yml"
                         }
@@ -122,5 +117,6 @@ pipeline {
         }
     }
 }
+
 
 
