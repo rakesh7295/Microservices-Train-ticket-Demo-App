@@ -95,15 +95,10 @@ pipeline {
             steps{
                 script{
                     withKubeConfig([credentialsId: 'rancher-api-login', serverUrl: "env.KUBERNETESserver"]){
-                        try{
-                            sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
-                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
-                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
-                            //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
-                            sh "cat ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
-                        }catch(ex){
-                            // sh "kubectl create -f deployments5.yml"
-                        }
+                        sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
+                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
+                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
+                        sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
                     }
                 }
             }
