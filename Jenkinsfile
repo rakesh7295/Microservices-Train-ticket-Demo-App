@@ -6,6 +6,10 @@ pipeline {
 
     agent any
 
+    tools {
+	maven 'default'
+    } 
+
     stages {
         stage('Config Vars') {
         steps {
