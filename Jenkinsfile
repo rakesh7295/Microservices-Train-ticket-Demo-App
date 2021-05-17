@@ -55,7 +55,7 @@ pipeline {
             }
             }
         }
-        stage('SonarQube') {
+/*        stage('SonarQube') {
             steps {
 		script {
                     withSonarQubeEnv('sonarqube') {
@@ -64,6 +64,7 @@ pipeline {
 		}
             }
         }
+*/
         stage('Building image') {
             steps{
                 script {
@@ -98,7 +99,7 @@ pipeline {
             {
                     sh 'pwd'
                     sh 'chmod +x /var/lib/jenkins/jobs/Train-ticket-Demo-MicroservicesApplication/branches/master/workspace/train-ticket-test/src/test/java/com/cucumberseleniumdemo/chromedriver'
-                    sh 'mvn clean install'
+                    sh 'mvn clean install ./train-ticket-test/'
             }
         }
 
