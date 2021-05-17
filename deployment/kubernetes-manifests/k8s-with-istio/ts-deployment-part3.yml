@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ts-ui-dashboard
-        image: $REGISTRY_HOST/ts-ui-dashboard:0.1.0
+        image: $REGISTRY_HOST/ts-ui-dashboard:$BUILD_NUMBER
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
