@@ -6,10 +6,6 @@ pipeline {
 
     agent any
 
-    tools{
-        maven 'jenkins-maven'
-    }
-
     stages {
         stage('Config Vars') {
         steps {

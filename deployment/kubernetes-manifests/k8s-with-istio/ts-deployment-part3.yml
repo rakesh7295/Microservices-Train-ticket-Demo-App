@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ts-ui-dashboard
-        image: harbor.coe.com/train_app_dev/ts-ui-dashboard:0.0.4
+        image: codewisdom/ts-ui-dashboard:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
       - name: ts-avatar-service
-        image: codewisdom/ts-avatar-service:0.0.4
+        image: codewisdom/ts-avatar-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 17001

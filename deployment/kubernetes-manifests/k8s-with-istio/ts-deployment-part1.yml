@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-user-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -17,6 +17,10 @@ spec:
       - name: ts-user-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"       
         ports:
         - containerPort: 27017
 ---
@@ -25,7 +29,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-auth-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -40,6 +44,10 @@ spec:
       - name: ts-auth-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 ---
@@ -48,7 +56,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-route-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -63,6 +71,10 @@ spec:
       - name: ts-route-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 ---
@@ -71,7 +83,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-contacts-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -86,6 +98,10 @@ spec:
       - name: ts-contacts-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -95,7 +111,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-order-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -110,6 +126,10 @@ spec:
       - name: ts-order-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -119,7 +139,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-order-other-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -134,6 +154,10 @@ spec:
       - name: ts-order-other-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -143,7 +167,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-config-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -158,6 +182,10 @@ spec:
       - name: ts-config-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 ---
@@ -166,7 +194,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-station-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -181,6 +209,10 @@ spec:
       - name: ts-station-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -190,7 +222,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-train-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -205,6 +237,10 @@ spec:
       - name: ts-train-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -214,7 +250,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-travel-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -229,6 +265,10 @@ spec:
       - name: ts-travel-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -238,7 +278,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-travel2-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -253,6 +293,10 @@ spec:
       - name: ts-travel2-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -262,7 +306,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-price-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -277,6 +321,10 @@ spec:
       - name: ts-price-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -286,7 +334,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-security-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -301,6 +349,10 @@ spec:
       - name: ts-security-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -310,7 +362,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-inside-payment-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -325,6 +377,10 @@ spec:
       - name: ts-inside-payment-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -334,7 +390,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-payment-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -349,6 +405,10 @@ spec:
       - name: ts-payment-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -358,7 +418,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-assurance-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -371,17 +431,22 @@ spec:
     spec:
       containers:
       - name: ts-assurance-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: mongo:latest
         imagePullPolicy: IfNotPresent
+        command:
+        - "mongod"
+        - "--bind_ip"
+        - "0.0.0.0"        
         ports:
         - containerPort: 27017
+
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-ticket-office-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -396,6 +461,10 @@ spec:
       - name: ts-ticket-office-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -406,7 +475,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-voucher-mysql
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -420,7 +489,7 @@ spec:
       containers:
       - name: ts-voucher-mysql
         image: mysql:5.6.35
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent      
         env:
         # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
@@ -434,7 +503,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-food-map-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -449,6 +518,10 @@ spec:
       - name: ts-food-map-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -458,7 +531,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-consign-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -473,6 +546,10 @@ spec:
       - name: ts-consign-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -482,7 +559,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-consign-price-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -497,6 +574,10 @@ spec:
       - name: ts-consign-price-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -506,7 +587,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-food-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   selector:
     matchLabels:
@@ -521,6 +602,10 @@ spec:
       - name: ts-food-mongo
         image: harbor.coe.com/train_app_dev/mongo
         imagePullPolicy: IfNotPresent
+        command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"        
         ports:
         - containerPort: 27017
 
@@ -529,7 +614,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-user-mongo 
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -541,21 +626,41 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-auth-mongo
+  name: ts-user-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-user-mongo.train-mongo.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-auth-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
       port: 27017
   selector:
    app: ts-auth-mongo
----
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-auth-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-auth-mongo.train-mongo.svc.cluster.local
+
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-route-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -564,12 +669,22 @@ spec:
    app: ts-route-mongo
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-route-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-route-mongo.train-mongo.svc.cluster.local
+
+---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-contacts-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -578,12 +693,22 @@ spec:
    app: ts-contacts-mongo
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-contacts-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-contacts-mongo.train-mongo.svc.cluster.local
+
+---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-order-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -592,12 +717,22 @@ spec:
    app: ts-order-mongo
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-order-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-order-mongo.train-mongo.svc.cluster.local   
+
+---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-order-other-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -610,8 +745,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-config-mongo
+  name: ts-order-other-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-order-other-mongo.train-mongo.svc.cluster.local    
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-config-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -624,8 +770,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-station-mongo
+  name: ts-config-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-config-mongo.train-mongo.svc.cluster.local      
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-station-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -638,8 +795,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-train-mongo
+  name: ts-station-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-station-mongo.train-mongo.svc.cluster.local    
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-train-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -652,8 +820,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel-mongo
+  name: ts-train-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-train-mongo.train-mongo.svc.cluster.local 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-travel-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -666,8 +844,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel2-mongo
+  name: ts-travel-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-travel-mongo.train-mongo.svc.cluster.local   
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-travel2-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -680,8 +869,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-price-mongo
+  name: ts-travel2-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-travel2-mongo.train-mongo.svc.cluster.local 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-price-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -694,8 +893,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-security-mongo
+  name: ts-price-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-price-mongo.train-mongo.svc.cluster.local    
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-security-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -708,8 +918,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-inside-payment-mongo
+  name: ts-security-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-security-mongo.train-mongo.svc.cluster.local  
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-inside-payment-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -717,13 +938,24 @@ spec:
   selector:
    app: ts-inside-payment-mongo
 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-inside-payment-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-inside-payment-mongo.train-mongo.svc.cluster.local  
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-payment-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -736,9 +968,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-assurance-mongo
+  name: ts-payment-mongo
   namespace: train-app
-spec:
+spec:  
+  type: ExternalName
+  externalName: ts-payment-mongo.train-mongo.svc.cluster.local 
+  
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-assurance-mongo
+  namespace: train-mongo
+spec:  
   ports:
     - name: http
       port: 27017    
@@ -746,12 +989,21 @@ spec:
    app: ts-assurance-mongo
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-assurance-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-assurance-mongo.train-mongo.svc.cluster.local
+---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-ticket-office-mongo
-  namespace: train-app
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -764,8 +1016,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-voucher-mysql
+  name: ts-ticket-office-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-ticket-office-mongo.train-mongo.svc.cluster.local 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-voucher-mysql
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -778,8 +1041,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-map-mongo
+  name: ts-voucher-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-voucher-mongo.train-mongo.svc.cluster.local 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-food-map-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -792,8 +1066,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-mongo
+  name: ts-food-map-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-food-map-mongo.train-mongo.svc.cluster.local 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-consign-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -806,8 +1091,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-price-mongo
+  name: ts-consign-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-consign-mongo.train-mongo.svc.cluster.local 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-consign-price-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
@@ -820,11 +1116,33 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-mongo
+  name: ts-consign-price-mongo
   namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-consign-price-mongo.train-mongo.svc.cluster.local 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-food-mongo
+  namespace: train-mongo
 spec:
   ports:
     - name: http
       port: 27017    
   selector:
    app: ts-food-mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-food-mongo
+  namespace: train-app
+spec:  
+  type: ExternalName
+  externalName: ts-food-mongo.train-mongo.svc.cluster.local    
