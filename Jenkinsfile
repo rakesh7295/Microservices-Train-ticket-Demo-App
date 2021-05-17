@@ -92,6 +92,25 @@ pipeline {
                 }
             }
         }
+	stage('Test Stage') 
+        {
+            steps 
+            {
+                    sh 'pwd'
+                    sh 'chmod +x /var/lib/jenkins/jobs/Train-ticket-Demo-MicroservicesApplication/branches/master/workspace/train-ticket-test/src/test/java/com/cucumberseleniumdemo/chromedriver'
+                    sh 'mvn clean install'
+            }
+        }
+
+        stage ('Cucumber Reports') 
+        {
+            steps 
+            {
+                cucumber fileIncludePattern: "**/*.json",
+                jsonReportDirectory: '/var/lib/jenkins/jobs/Train-ticket-Demo-MicroservicesApplication/branches/master/workspace/'
+            }
+
+        }
         stage('Cleanup'){
             steps{
                 sh '''
