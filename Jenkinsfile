@@ -15,7 +15,6 @@ pipeline {
                     //urls for DC Datacenter to be configured
                     env.REGISTRY_URL = "http://harbor.coe.com/"
                     env.GIT_URL = "http://git.coe.com:3000/developer.os3/Microservices-Train-ticket-Demo-App.git"
-                    env.SONARQUBE_URL = "http://10.0.100.16"
                     env.NAMESPACE = 'train-app'
 
                     //project parameters.
@@ -39,7 +38,6 @@ pipeline {
                     //urls for DC Datacenter to be configured
                     env.REGISTRY_URL = "http://harbor.coe.com/"
                     env.GIT_URL = "https://dcvl-git.ns.keralapolice.gov.in/jenkins-admin/ui.git"
-                    env.SONARQUBE_URL = "http://10.0.100.16"
                     env.NAMESPACE = 'train-app'
 
                     if(params.ENVIRONMENT == 'PROD'){
@@ -53,28 +51,15 @@ pipeline {
             }
             }
         }
-/*
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('dc-sonar') {
-                        sh '''mvn sonar:sonar'''
-                }
-            }
-        }
-
-        stage('Quality Gate'){
-            steps {
-                script {
-                    timeout(time: 1, unit: 'HOURS') {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                        }
+		script {
+                    withSonarQubeEnv('sonarqube') {
+                    	sh 'mvn clean package sonar:sonar'
                     }
-                }
+		}
             }
         }
-*/
         stage('Building image') {
             steps{
                 script {
@@ -98,7 +83,7 @@ pipeline {
                         sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
                         //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
                         //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
-                        sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
+                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
                     }
                 }
             }
