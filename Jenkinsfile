@@ -55,7 +55,7 @@ pipeline {
             }
             }
         }
-/*        stage('SonarQube') {
+        stage('SonarQube') {
             steps {
 		script {
                     withSonarQubeEnv('sonarqube') {
@@ -64,7 +64,7 @@ pipeline {
 		}
             }
         }
-*/
+
         stage('Building image') {
             steps{
                 script {
