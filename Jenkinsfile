@@ -59,7 +59,7 @@ pipeline {
             steps {
 		script {
                     withSonarQubeEnv('sonarqube') {
-                    	sh 'mvn clean package sonar:sonar -f ./ts-ui-dashboard/'
+                    	sh 'mvn clean package sonar:sonar'
                     }
 		}
             }

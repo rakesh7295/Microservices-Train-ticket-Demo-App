@@ -28,7 +28,10 @@
 
     </parent>
 
-
+    <properties>
+        <sonar.sources>./ts-ui-dashboard/</sonar.sources>
+    </properties>
+    
     <dependencies>
 
         <dependency>
