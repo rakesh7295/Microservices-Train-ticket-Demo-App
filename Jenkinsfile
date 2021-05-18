@@ -84,11 +84,17 @@ pipeline {
         stage('Deploy to Kubernetes'){
             steps{
                 script{
-                    withKubeConfig([credentialsId: 'rancher-api-login', serverUrl: "env.KUBERNETESserver"]){
+                    withKubeConfig([credentialsId: 'rancher-api-login', serverUrl: "${env.KUBERNETESserver}"]){
+			//Replacing the env variable from YAML files
                         sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
-                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
+                        
+			//Application YAML deployment 
+			//sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
                         //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
                         //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
+
+			//Istio YAML deployment
+			//sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/trainticket-gateway.yaml"
                     }
                 }
             }
