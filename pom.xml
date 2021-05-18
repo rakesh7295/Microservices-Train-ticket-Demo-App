@@ -29,40 +29,45 @@
     </parent>
 
 
-
     <dependencies>
 
         <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
 
-			<groupId>org.springframework.boot</groupId>
-
-			<artifactId>spring-boot-starter-web</artifactId>
-
-		</dependency>
-
-		<dependency>
-
-			<groupId>org.springframework.boot</groupId>
-
-			<artifactId>spring-boot-starter-integration</artifactId>
-
-		</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-integration</artifactId>
+	</dependency>
 
         <dependency>
-
             <groupId>org.springframework.boot</groupId>
-
             <artifactId>spring-boot-starter-aop</artifactId>
-
         </dependency>
 
         <dependency>
-
             <groupId>org.springframework.boot</groupId>
-
             <artifactId>spring-boot-starter-actuator</artifactId>
+    	</dependency>
 
-        </dependency>
+	<dependency>
+   		<groupId>org.sonarsource.html</groupId>
+   		<artifactId>sonar-html-plugin</artifactId>
+   		<version>3.4.0.2754</version>
+	</dependency>
+	
+	<dependency>
+	   <groupId>org.sonarsource.css</groupId>
+	   <artifactId>sonar-css-plugin</artifactId>
+	   <version>1.4.2.2002</version>
+   	</dependency>
+	
+	<dependency>
+	   <groupId>org.sonarsource.javascript</groupId>
+	   <artifactId>sonar-javascript-plugin</artifactId>
+	   <version>7.4.3.15529</version>
+   	</dependency>
 
     </dependencies>
 
@@ -82,7 +87,7 @@
 
             </plugin>
 
-	    </plugins>
+       </plugins>
 
     </build>
 </project>    
