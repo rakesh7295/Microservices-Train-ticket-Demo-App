@@ -114,7 +114,7 @@ pipeline {
             steps 
             {
                 cucumber fileIncludePattern: "**/cucumber.json",
-                jsonReportDirectory: 'target'
+                jsonReportDirectory: '/var/lib/jenkins/jobs/Train-ticket-Demo-MicroservicesApplication/branches/master/workspace/'
             }
 
         }
