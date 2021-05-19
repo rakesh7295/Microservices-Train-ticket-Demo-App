@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: ts-admin-basic-info-service
-        image: harbor.coe.com/ts-admin-basic-info-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-admin-basic-info-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18767
@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: ts-admin-order-service
-        image: harbor.coe.com/ts-admin-order-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-admin-order-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16112
@@ -117,7 +117,7 @@ spec:
     spec:
       containers:
       - name: ts-admin-route-service
-        image: harbor.coe.com/ts-admin-route-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-admin-route-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16113
@@ -146,7 +146,7 @@ spec:
     spec:
       containers:
       - name: ts-admin-travel-service
-        image: harbor.coe.com/ts-admin-travel-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-admin-travel-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16114
@@ -175,7 +175,7 @@ spec:
     spec:
       containers:
       - name: ts-admin-user-service
-        image: harbor.coe.com/ts-admin-user-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-admin-user-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16115
@@ -204,7 +204,7 @@ spec:
     spec:
       containers:
       - name: ts-assurance-service
-        image: harbor.coe.com/ts-assurance-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-assurance-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18888
@@ -233,7 +233,7 @@ spec:
     spec:
       containers:
       - name: ts-basic-service
-        image: harbor.coe.com/ts-basic-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-basic-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 15680
@@ -262,7 +262,7 @@ spec:
     spec:
       containers:
       - name: ts-cancel-service
-        image: harbor.coe.com/ts-cancel-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-cancel-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18885
@@ -291,7 +291,7 @@ spec:
     spec:
       containers:
       - name: ts-config-service
-        image: harbor.coe.com/ts-config-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-config-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 15679
@@ -320,7 +320,7 @@ spec:
     spec:
       containers:
       - name: ts-consign-price-service
-        image: harbor.coe.com/ts-consign-price-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-consign-price-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16110
@@ -349,7 +349,7 @@ spec:
     spec:
       containers:
       - name: ts-consign-service
-        image: harbor.coe.com/ts-consign-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-consign-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16111
@@ -378,7 +378,7 @@ spec:
     spec:
       containers:
       - name: ts-contacts-service
-        image: harbor.coe.com/ts-contacts-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-contacts-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12347
@@ -407,7 +407,7 @@ spec:
     spec:
       containers:
       - name: ts-execute-service
-        image: harbor.coe.com/ts-execute-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-execute-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12386
@@ -436,7 +436,7 @@ spec:
     spec:
       containers:
       - name: ts-food-map-service
-        image: harbor.coe.com/ts-food-map-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-food-map-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18855
@@ -465,7 +465,7 @@ spec:
     spec:
       containers:
       - name: ts-food-service
-        image: harbor.coe.com/ts-food-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-food-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18856
@@ -494,7 +494,7 @@ spec:
     spec:
       containers:
       - name: ts-inside-payment-service
-        image: harbor.coe.com/ts-inside-payment-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-inside-payment-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18673
@@ -523,7 +523,7 @@ spec:
     spec:
       containers:
       - name: ts-auth-service
-        image: harbor.coe.com/ts-auth-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-auth-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12340
@@ -552,7 +552,7 @@ spec:
     spec:
       containers:
       - name: ts-news-service
-        image: harbor.coe.com/ts-news-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-news-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12862
@@ -581,7 +581,7 @@ spec:
     spec:
       containers:
       - name: ts-notification-service
-        image: harbor.coe.com/ts-notification-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-notification-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 17853
@@ -610,7 +610,7 @@ spec:
     spec:
       containers:
       - name: ts-order-other-service
-        image: harbor.coe.com/ts-order-other-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-order-other-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12032
@@ -639,7 +639,7 @@ spec:
     spec:
       containers:
       - name: ts-order-service
-        image: harbor.coe.com/ts-order-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-order-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12031
@@ -668,7 +668,7 @@ spec:
     spec:
       containers:
       - name: ts-payment-service
-        image: harbor.coe.com/ts-payment-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-payment-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 19001
@@ -697,7 +697,7 @@ spec:
     spec:
       containers:
       - name: ts-preserve-other-service
-        image: harbor.coe.com/ts-preserve-other-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-preserve-other-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 14569
@@ -726,7 +726,7 @@ spec:
     spec:
       containers:
       - name: ts-preserve-service
-        image: harbor.coe.com/ts-preserve-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-preserve-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 14568
@@ -755,7 +755,7 @@ spec:
     spec:
       containers:
       - name: ts-price-service
-        image: harbor.coe.com/ts-price-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-price-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16579
@@ -784,7 +784,7 @@ spec:
     spec:
       containers:
       - name: ts-rebook-service
-        image: harbor.coe.com/ts-rebook-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-rebook-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18886
@@ -813,7 +813,7 @@ spec:
     spec:
       containers:
       - name: ts-route-plan-service
-        image: harbor.coe.com/ts-route-plan-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-route-plan-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 14578
@@ -842,7 +842,7 @@ spec:
     spec:
       containers:
       - name: ts-route-service
-        image: harbor.coe.com/ts-route-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-route-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 11178
@@ -871,7 +871,7 @@ spec:
     spec:
       containers:
       - name: ts-seat-service
-        image: harbor.coe.com/ts-seat-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-seat-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 18898
@@ -900,7 +900,7 @@ spec:
     spec:
       containers:
       - name: ts-security-service
-        image: harbor.coe.com/ts-security-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-security-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 11188
@@ -929,7 +929,7 @@ spec:
     spec:
       containers:
       - name: ts-user-service
-        image: harbor.coe.com/ts-user-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-user-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12342
@@ -958,7 +958,7 @@ spec:
     spec:
       containers:
       - name: ts-station-service
-        image: harbor.coe.com/ts-station-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-station-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12345
@@ -987,7 +987,7 @@ spec:
     spec:
       containers:
       - name: ts-ticket-office-service
-        image: harbor.coe.com/ts-ticket-office-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-ticket-office-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16108
@@ -1016,7 +1016,7 @@ spec:
     spec:
       containers:
       - name: ts-ticketinfo-service
-        image: harbor.coe.com/ts-ticketinfo-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-ticketinfo-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 15681
@@ -1045,7 +1045,7 @@ spec:
     spec:
       containers:
       - name: ts-train-service
-        image: harbor.coe.com/ts-train-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-train-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 14567
@@ -1074,7 +1074,7 @@ spec:
     spec:
       containers:
       - name: ts-travel2-service
-        image: harbor.coe.com/ts-travel2-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-travel2-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16346
@@ -1103,7 +1103,7 @@ spec:
     spec:
       containers:
       - name: ts-travel-plan-service
-        image: harbor.coe.com/ts-travel-plan-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-travel-plan-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 14322
@@ -1132,7 +1132,7 @@ spec:
     spec:
       containers:
       - name: ts-travel-service
-        image: harbor.coe.com/ts-travel-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-travel-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 12346
@@ -1161,7 +1161,7 @@ spec:
     spec:
       containers:
       - name: ts-verification-code-service
-        image: harbor.coe.com/ts-verification-code-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-verification-code-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 15678
@@ -1190,7 +1190,7 @@ spec:
     spec:
       containers:
       - name: ts-voucher-service
-        image: harbor.coe.com/ts-voucher-service:0.1.0
+        image: harbor.coe.com/train_app_dev/ts-voucher-service:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16101
