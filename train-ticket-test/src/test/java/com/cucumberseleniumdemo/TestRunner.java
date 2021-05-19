@@ -9,12 +9,8 @@ import org.junit.runner.RunWith;
         features = { "src/test/resources/features/"},
         plugin = {
                 "pretty",
-		"json:target/cucumber-json/cucumber.json",
-		"junit:target/cucumber-reports/cucumber.xml",	
-		"html:target/cucumber-reports"
-               // "html:results/html",
-               // "json:results/json/result.json",
-               // "junit:results/junit/cucumber.xml"
+		"json:target/cucumber.json",
+		"html:target/cucumber"
         },
         monochrome = true
 )

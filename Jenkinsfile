@@ -113,7 +113,7 @@ pipeline {
         {
             steps 
             {
-                cucumber fileIncludePattern: "**/*.json",
+                cucumber fileIncludePattern: "**/cucumber.json",
                 jsonReportDirectory: 'target'
             }
 
