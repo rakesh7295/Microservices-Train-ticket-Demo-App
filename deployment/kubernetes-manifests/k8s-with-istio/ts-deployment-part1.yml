@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ts-user-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: ts-auth-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -69,7 +69,7 @@ spec:
     spec:
       containers:
       - name: ts-route-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -96,7 +96,7 @@ spec:
     spec:
       containers:
       - name: ts-contacts-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -124,7 +124,7 @@ spec:
     spec:
       containers:
       - name: ts-order-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -152,7 +152,7 @@ spec:
     spec:
       containers:
       - name: ts-order-other-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -180,7 +180,7 @@ spec:
     spec:
       containers:
       - name: ts-config-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -207,7 +207,7 @@ spec:
     spec:
       containers:
       - name: ts-station-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -235,7 +235,7 @@ spec:
     spec:
       containers:
       - name: ts-train-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -263,7 +263,7 @@ spec:
     spec:
       containers:
       - name: ts-travel-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -291,7 +291,7 @@ spec:
     spec:
       containers:
       - name: ts-travel2-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -319,7 +319,7 @@ spec:
     spec:
       containers:
       - name: ts-price-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -347,7 +347,7 @@ spec:
     spec:
       containers:
       - name: ts-security-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -375,7 +375,7 @@ spec:
     spec:
       containers:
       - name: ts-inside-payment-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -403,7 +403,7 @@ spec:
     spec:
       containers:
       - name: ts-payment-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -459,7 +459,7 @@ spec:
     spec:
       containers:
       - name: ts-ticket-office-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -516,7 +516,7 @@ spec:
     spec:
       containers:
       - name: ts-food-map-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -544,7 +544,7 @@ spec:
     spec:
       containers:
       - name: ts-consign-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -572,7 +572,7 @@ spec:
     spec:
       containers:
       - name: ts-consign-price-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
@@ -600,7 +600,7 @@ spec:
     spec:
       containers:
       - name: ts-food-mongo
-        image: harbor.coe.com/train_app_dev/mongo
+        image: $REGISTRY_HOST/mongo
         imagePullPolicy: IfNotPresent
         command:
           - "mongod"
