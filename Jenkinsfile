@@ -89,12 +89,12 @@ pipeline {
                         sh "BUILD_TYPE=${BUILD_TYPE} && BUILD_NUMBER=${BUILD_NUMBER} && REGISTRY_HOST=${REGISTRY_HOST} && NAMESPACE=${NAMESPACE} && envsubst < ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part3.yml > ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
                         
 			//Application YAML deployment 
-			//sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
-                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
-                        //sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
+			sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part1.yml"
+                        sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part2.yml"
+                        sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/ts-deployment-part6.yml"
 
 			//Istio YAML deployment
-			//sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/trainticket-gateway.yaml"
+			sh "kubectl apply -f ./deployment/kubernetes-manifests/k8s-with-istio/trainticket-gateway.yaml"
                     }
                 }
             }
@@ -103,7 +103,6 @@ pipeline {
         {
             steps 
             {
-                    sh 'pwd'
                     sh 'chmod +x /var/lib/jenkins/jobs/Train-ticket-Demo-MicroservicesApplication/branches/master/workspace/train-ticket-test/src/test/java/com/cucumberseleniumdemo/chromedriver'
                     sh 'mvn clean install -f ./train-ticket-test/'
             }
@@ -124,6 +123,30 @@ pipeline {
                 docker rmi $(docker images -f 'dangling=true' -q) || true
                 '''
             }
+        }
+    }
+
+    stage ('Send Email Notification') {
+        steps {
+              // send to email
+            emailext subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                to: '$DEFAULT_RECIPIENTS'
+          }
+        }    
+    }
+    post {
+        success {
+          emailext subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                to: "rakesh.yadav@os3infotech.com"
+        }
+        failure {
+          emailext to: 'rakesh.yadav@os3infotech.com',
+              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+              body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }

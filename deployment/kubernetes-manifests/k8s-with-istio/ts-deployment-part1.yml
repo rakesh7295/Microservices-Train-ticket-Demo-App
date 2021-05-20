@@ -626,16 +626,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-user-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-user-mongo.train-mongo.svc.cluster.local
-
----
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-auth-mongo
   namespace: train-mongo
 spec:
@@ -644,16 +634,6 @@ spec:
       port: 27017
   selector:
    app: ts-auth-mongo
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-auth-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-auth-mongo.train-mongo.svc.cluster.local
 
 ---
 apiVersion: v1
@@ -669,16 +649,6 @@ spec:
    app: ts-route-mongo
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-route-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-route-mongo.train-mongo.svc.cluster.local
-
----
 
 apiVersion: v1
 kind: Service
@@ -691,17 +661,6 @@ spec:
       port: 27017  
   selector:
    app: ts-contacts-mongo
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-contacts-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-contacts-mongo.train-mongo.svc.cluster.local
-
 ---
 
 apiVersion: v1
@@ -715,16 +674,6 @@ spec:
       port: 27017  
   selector:
    app: ts-order-mongo
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-order-mongo.train-mongo.svc.cluster.local   
 
 ---
 
@@ -745,17 +694,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-order-other-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-order-other-mongo.train-mongo.svc.cluster.local    
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-config-mongo
   namespace: train-mongo
 spec:
@@ -763,18 +701,7 @@ spec:
     - name: http
       port: 27017    
   selector:
-   app: ts-config-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-config-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-config-mongo.train-mongo.svc.cluster.local      
+   app: ts-config-mongo    
 
 ---
 
@@ -788,18 +715,7 @@ spec:
     - name: http
       port: 27017    
   selector:
-   app: ts-station-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-station-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-station-mongo.train-mongo.svc.cluster.local    
+   app: ts-station-mongo   
 
 ---
 
@@ -820,16 +736,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-train-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-train-mongo.train-mongo.svc.cluster.local 
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-travel-mongo
   namespace: train-mongo
 spec:
@@ -837,18 +743,7 @@ spec:
     - name: http
       port: 27017    
   selector:
-   app: ts-travel-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-travel-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-travel-mongo.train-mongo.svc.cluster.local   
+   app: ts-travel-mongo  
 
 ---
 
@@ -869,16 +764,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel2-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-travel2-mongo.train-mongo.svc.cluster.local 
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-price-mongo
   namespace: train-mongo
 spec:
@@ -886,18 +771,7 @@ spec:
     - name: http
       port: 27017    
   selector:
-   app: ts-price-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-price-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-price-mongo.train-mongo.svc.cluster.local    
+   app: ts-price-mongo    
 
 ---
 
@@ -911,18 +785,7 @@ spec:
     - name: http
       port: 27017  
   selector:
-   app: ts-security-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-security-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-security-mongo.train-mongo.svc.cluster.local  
+   app: ts-security-mongo  
 
 ---
 
@@ -938,17 +801,6 @@ spec:
   selector:
    app: ts-inside-payment-mongo
 
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-inside-payment-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-inside-payment-mongo.train-mongo.svc.cluster.local  
 ---
 
 apiVersion: v1
@@ -962,17 +814,6 @@ spec:
       port: 27017    
   selector:
    app: ts-payment-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-payment-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-payment-mongo.train-mongo.svc.cluster.local 
   
 ---
 
@@ -989,15 +830,6 @@ spec:
    app: ts-assurance-mongo
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-assurance-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-assurance-mongo.train-mongo.svc.cluster.local
----
 
 apiVersion: v1
 kind: Service
@@ -1010,17 +842,6 @@ spec:
       port: 27017    
   selector:
    app: ts-ticket-office-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-ticket-office-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-ticket-office-mongo.train-mongo.svc.cluster.local 
 
 ---
 
@@ -1041,17 +862,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-voucher-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-voucher-mongo.train-mongo.svc.cluster.local 
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-food-map-mongo
   namespace: train-mongo
 spec:
@@ -1060,17 +870,6 @@ spec:
       port: 27017  
   selector:
    app: ts-food-map-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-food-map-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-food-map-mongo.train-mongo.svc.cluster.local 
 
 ---
 
@@ -1091,17 +890,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-consign-mongo.train-mongo.svc.cluster.local 
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-consign-price-mongo
   namespace: train-mongo
 spec:
@@ -1110,17 +898,6 @@ spec:
       port: 27017    
   selector:
    app: ts-consign-price-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-consign-price-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-consign-price-mongo.train-mongo.svc.cluster.local 
 
 ---
 
@@ -1136,13 +913,3 @@ spec:
   selector:
    app: ts-food-mongo
 
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-food-mongo
-  namespace: train-app
-spec:  
-  type: ExternalName
-  externalName: ts-food-mongo.train-mongo.svc.cluster.local    
