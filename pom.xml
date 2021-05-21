@@ -60,11 +60,11 @@
    		<version>3.4.0.2754</version>
 	</dependency>
 	
-	<dependency>
+	<!-- <dependency>
 	   <groupId>org.sonarsource.css</groupId>
 	   <artifactId>sonar-css-plugin</artifactId>
 	   <version>1.4.2.2002</version>
-   	</dependency>
+   </dependency> -->
 	
 	<dependency>
 	   <groupId>org.sonarsource.javascript</groupId>
