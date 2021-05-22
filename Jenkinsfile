@@ -1,7 +1,7 @@
 pipeline {
     parameters {
         choice(choices: ['DC','DR'],name: 'DATACENTER', description: 'Select DataCenter')
-        choice(choices: ['PROD','DEV','QA'], name: 'ENVIRONMENT', description: 'Select Environment.')
+        choice(choices: ['DEV','QA','PROD'], name: 'ENVIRONMENT', description: 'Select Environment.')
     }
 
     agent any
@@ -10,10 +10,23 @@ pipeline {
 	maven 'default'
     } 
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    }
+
     stages {
         stage('Config Vars') {
         steps {
             script {
+                //depending on branch name set the params.
+                if(env.BRANCH_NAME == "qa"){
+                    params.ENVIRONMENT = "QA"
+                }else if (env.BRANCH_NAME == "master"){
+                    params.ENVIRONMENT = "PROD"
+                }else{
+                    params.ENVIRONMENT = "DEV"
+                }
+                // according to param values other variables are set.
                 if(params.DATACENTER == 'DC'){
                     echo "Datacenter =  ${params.DATACENTER}"
                     //urls for DC Datacenter to be configured
