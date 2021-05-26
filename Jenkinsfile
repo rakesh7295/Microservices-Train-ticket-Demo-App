@@ -20,11 +20,11 @@ pipeline {
             script {
                 //depending on branch name set the params.
                 if(env.BRANCH_NAME == "qa"){
-                    params.ENVIRONMENT = "QA"
+                    env.ENVIRONMENT = "QA"
                 }else if (env.BRANCH_NAME == "master"){
-                    params.ENVIRONMENT = "PROD"
+                    env.ENVIRONMENT = "PROD"
                 }else{
-                    params.ENVIRONMENT = "DEV"
+                    env.ENVIRONMENT = "DEV"
                 }
                 // according to param values other variables are set.
                 if(params.DATACENTER == 'DC'){
@@ -35,19 +35,19 @@ pipeline {
                     env.NAMESPACE = 'train-app'
 
                     //project parameters.
-                    if(params.ENVIRONMENT == 'PROD'){
+                    if(env.ENVIRONMENT == 'PROD'){
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-hfvb8"
                         env.BUILD_TYPE = 'train_app_prod'
                         env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
 
-                    } else if(params.ENVIRONMENT == 'DEV'){
-                        env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-gl6rx"
-                        env.BUILD_TYPE = 'train_app_dev'
-                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
-                    } else {
+                    } else if(env.ENVIRONMENT == 'QA'){
                         env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-mhfmv"
                         env.BUILD_TYPE = 'train_app_qa'
                         env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"
+                    } else {
+                        env.KUBERNETESserver = "https://rancher.coe.com/k8s/clusters/c-gl6rx"
+                        env.BUILD_TYPE = 'train_app_dev'
+                        env.REGISTRY_HOST = "harbor.coe.com/${BUILD_TYPE}"     
                     }
 
                 }else {
